@@ -1,0 +1,49 @@
+{"text": "h2o", "domain": "chemistry", "difficulty": "basic"}
+{"text": "nacl", "domain": "chemistry", "difficulty": "basic"}
+{"text": "co2", "domain": "chemistry", "difficulty": "basic"}
+{"text": "ch4", "domain": "chemistry", "difficulty": "basic"}
+{"text": "nh3", "domain": "chemistry", "difficulty": "basic"}
+{"text": "c6h12o6", "domain": "chemistry", "difficulty": "basic"}
+{"text": "hcl", "domain": "chemistry", "difficulty": "basic"}
+{"text": "o2", "domain": "chemistry", "difficulty": "basic"}
+{"text": "atoms are the basic units of matter", "domain": "chemistry", "difficulty": "basic"}
+{"text": "the periodic table organizes elements", "domain": "chemistry", "difficulty": "basic"}
+{"text": "electrons orbit the atomic nucleus", "domain": "chemistry", "difficulty": "basic"}
+{"text": "covalent bonds share electron pairs", "domain": "chemistry", "difficulty": "basic"}
+{"text": "ionic bonds transfer electrons between atoms", "domain": "chemistry", "difficulty": "basic"}
+{"text": "water is a polar molecule due to its bent shape", "domain": "chemistry", "difficulty": "basic"}
+{"text": "acids donate protons and bases accept protons", "domain": "chemistry", "difficulty": "basic"}
+{"text": "ph measures the concentration of hydrogen ions in a solution", "domain": "chemistry", "difficulty": "basic"}
+{"text": "oxidation is the loss of electrons and reduction is the gain of electrons in a chemical reaction", "domain": "chemistry", "difficulty": "basic"}
+{"text": "catalysts speed up chemical reactions without being consumed in the process", "domain": "chemistry", "difficulty": "basic"}
+{"text": "chemical equilibrium occurs when the rate of the forward reaction equals the rate of the reverse reaction", "domain": "chemistry", "difficulty": "basic"}
+{"text": "exothermic reactions release heat energy while endothermic reactions absorb heat energy from the surroundings", "domain": "chemistry", "difficulty": "basic"}
+{"text": "the mole is a unit representing approximately six point zero two times ten to the twenty third particles of a substance", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "electronegativity increases across a period and decreases down a group in the periodic table", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "the ideal gas law relates pressure volume temperature and amount of gas through the equation pv equals nrt", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "le chateliers principle states that a system at equilibrium will shift to counteract any change imposed upon it", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "stoichiometry uses balanced equations to calculate the quantities of reactants and products in chemical reactions", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "metallic bonds involve a sea of delocalized electrons shared among positively charged metal ions in a lattice structure", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "entropy is a measure of the disorder or randomness in a system and tends to increase in spontaneous processes", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "the electron configuration of an atom determines its chemical properties and its position in the periodic table", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "hydrogen bonding is a strong intermolecular force that occurs between hydrogen and highly electronegative atoms like oxygen nitrogen and fluorine", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "in an electrochemical cell chemical energy is converted to electrical energy through spontaneous redox reactions at the anode and cathode", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "organic chemistry studies carbon containing compounds and their reactions including alkanes alkenes alkynes alcohols and carboxylic acids which form the basis of biological molecules and synthetic materials", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "the first law of thermodynamics applied to chemistry states that the total energy change in a chemical reaction equals the heat exchanged plus the work done and energy is neither created nor destroyed only transformed", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "molecular orbital theory explains chemical bonding by combining atomic orbitals into molecular orbitals that can be bonding antibonding or nonbonding and the filling of these orbitals determines bond order and magnetic properties", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "rate laws describe how the concentration of reactants affects the speed of a reaction and the rate constant depends on temperature according to the arrhenius equation which includes an exponential term with activation energy", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "the gibbs free energy equation combines enthalpy and entropy to predict whether a reaction is spontaneous at a given temperature and a negative gibbs free energy change means the reaction proceeds forward without external energy input", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "nuclear chemistry involves reactions that change the composition of atomic nuclei including alpha decay beta decay and gamma emission and these processes release energy according to the mass energy equivalence principle", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "transition metals have partially filled d orbitals that allow them to form colored compounds exhibit variable oxidation states and act as catalysts in many industrial and biological processes", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "polymers are large molecules made by linking many small monomer units together through addition or condensation reactions and their properties depend on chain length branching and the functional groups present", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "buffer solutions resist changes in ph when small amounts of acid or base are added and they consist of a weak acid and its conjugate base or a weak base and its conjugate acid working together to neutralize added ions", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "colligative properties such as boiling point elevation freezing point depression and osmotic pressure depend on the number of dissolved solute particles rather than their chemical identity", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "crystal field theory explains the colors and magnetic properties of transition metal complexes by describing how d orbital energies split when surrounded by ligands in different geometric arrangements", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "the haber process synthesizes ammonia from nitrogen and hydrogen gases using high pressure high temperature and an iron catalyst and is essential for producing fertilizers that feed billions of people", "domain": "chemistry", "difficulty": "advanced"}
+{"text": "isomers are molecules with the same molecular formula but different structural arrangements and they can have vastly different physical and chemical properties despite identical composition", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "the solubility product constant describes the equilibrium between a solid ionic compound and its dissolved ions in a saturated solution", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "valence shell electron pair repulsion theory predicts molecular geometry by minimizing repulsion between electron pairs around a central atom", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "daltons atomic theory proposed that all matter is made of indivisible atoms that combine in whole number ratios to form compounds", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "the aufbau principle states that electrons fill atomic orbitals starting from the lowest energy level moving to higher levels sequentially", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "avogadros law states that equal volumes of gases at the same temperature and pressure contain equal numbers of molecules", "domain": "chemistry", "difficulty": "intermediate"}
+{"text": "electrolysis uses electrical energy to drive nonspontaneous chemical reactions separating compounds into their constituent elements at the electrodes", "domain": "chemistry", "difficulty": "intermediate"}

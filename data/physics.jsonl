@@ -1,0 +1,50 @@
+{"text": "f=ma", "domain": "physics", "difficulty": "basic"}
+{"text": "e=mc2", "domain": "physics", "difficulty": "basic"}
+{"text": "pv=nrt", "domain": "physics", "difficulty": "basic"}
+{"text": "v=ir", "domain": "physics", "difficulty": "basic"}
+{"text": "f=kx", "domain": "physics", "difficulty": "basic"}
+{"text": "s=vt", "domain": "physics", "difficulty": "basic"}
+{"text": "p=mv", "domain": "physics", "difficulty": "basic"}
+{"text": "w=fd", "domain": "physics", "difficulty": "basic"}
+{"text": "force equals mass times acceleration", "domain": "physics", "difficulty": "basic"}
+{"text": "energy cannot be created or destroyed", "domain": "physics", "difficulty": "basic"}
+{"text": "every action has an equal reaction", "domain": "physics", "difficulty": "basic"}
+{"text": "entropy of a system always increases", "domain": "physics", "difficulty": "basic"}
+{"text": "light speed is constant for all observers", "domain": "physics", "difficulty": "basic"}
+{"text": "an object at rest stays at rest", "domain": "physics", "difficulty": "basic"}
+{"text": "pressure times volume equals nrt", "domain": "physics", "difficulty": "basic"}
+{"text": "energy equals mass times c squared", "domain": "physics", "difficulty": "basic"}
+{"text": "work is the transfer of energy from one system to another through force", "domain": "physics", "difficulty": "basic"}
+{"text": "power is the rate at which work is done or energy is transferred over time", "domain": "physics", "difficulty": "basic"}
+{"text": "momentum is conserved in all collisions when no external forces act on the system", "domain": "physics", "difficulty": "basic"}
+{"text": "kinetic energy equals one half mass times velocity squared", "domain": "physics", "difficulty": "basic"}
+{"text": "gravity pulls all objects toward each other with a force proportional to their masses", "domain": "physics", "difficulty": "intermediate"}
+{"text": "the total momentum of a closed system is always conserved in all collisions", "domain": "physics", "difficulty": "intermediate"}
+{"text": "heat flows from hot objects to cold objects and never the reverse direction", "domain": "physics", "difficulty": "intermediate"}
+{"text": "electric current flows through a conductor proportional to the voltage applied", "domain": "physics", "difficulty": "intermediate"}
+{"text": "a wave carries energy through space without transporting matter along with it", "domain": "physics", "difficulty": "intermediate"}
+{"text": "the position and momentum of a particle cannot both be known with precision", "domain": "physics", "difficulty": "intermediate"}
+{"text": "time passes slower for objects moving at speeds close to the speed of light", "domain": "physics", "difficulty": "intermediate"}
+{"text": "the total energy of an isolated system remains constant through all changes", "domain": "physics", "difficulty": "intermediate"}
+{"text": "coulombs law states that the electric force between two charges is proportional to the product of the charges and inversely proportional to the square of the distance between them", "domain": "physics", "difficulty": "intermediate"}
+{"text": "an electromagnetic wave consists of oscillating electric and magnetic fields perpendicular to each other and to the direction of propagation", "domain": "physics", "difficulty": "intermediate"}
+{"text": "newtons first law says that an object in motion will stay in motion at constant velocity unless acted on by an external net force", "domain": "physics", "difficulty": "advanced"}
+{"text": "the second law of thermodynamics states that the entropy of an isolated system will tend to increase over time toward a maximum", "domain": "physics", "difficulty": "advanced"}
+{"text": "maxwells equations describe how electric and magnetic fields are generated and altered by each other and by charges and currents", "domain": "physics", "difficulty": "advanced"}
+{"text": "the photoelectric effect shows that light behaves as particles called photons each carrying energy proportional to its frequency", "domain": "physics", "difficulty": "advanced"}
+{"text": "general relativity describes gravity not as a force but as the curvature of spacetime caused by the presence of mass and energy", "domain": "physics", "difficulty": "advanced"}
+{"text": "quantum mechanics reveals that at the smallest scales particles exist in superposition of multiple states until they are measured", "domain": "physics", "difficulty": "advanced"}
+{"text": "conservation of angular momentum means a spinning object will keep spinning at the same rate unless a torque acts upon it from outside", "domain": "physics", "difficulty": "advanced"}
+{"text": "the strong nuclear force binds protons and neutrons together inside atomic nuclei overcoming the electric repulsion between protons", "domain": "physics", "difficulty": "advanced"}
+{"text": "the heisenberg uncertainty principle states that there is a fundamental limit to the precision with which certain pairs of physical properties such as position and momentum can be simultaneously known and this is not due to measurement error but is a property of nature itself", "domain": "physics", "difficulty": "advanced"}
+{"text": "einsteins special theory of relativity rests on two postulates first that the laws of physics are the same in all inertial reference frames and second that the speed of light in a vacuum is the same for all observers regardless of their motion or the motion of the source", "domain": "physics", "difficulty": "advanced"}
+{"text": "the principle of least action states that the path taken by a physical system between two states is the one for which the action integral is stationary and this single principle can be used to derive all of classical mechanics electromagnetism and even quantum field theory", "domain": "physics", "difficulty": "advanced"}
+{"text": "thermodynamic equilibrium is reached when a system has maximized its entropy and no further spontaneous changes can occur the system then has uniform temperature pressure and chemical potential throughout and all net flows of energy and matter have ceased completely", "domain": "physics", "difficulty": "advanced"}
+{"text": "the wave function in quantum mechanics contains all information about a quantum system and its square gives the probability of finding a particle at a given location but the wave function itself is not directly observable only its statistical predictions can be tested", "domain": "physics", "difficulty": "advanced"}
+{"text": "electromagnetic waves are oscillating electric and magnetic fields that propagate through space at the speed of light and they require no medium to travel through unlike sound waves they can cross the vacuum of space carrying energy from stars to planets across vast distances", "domain": "physics", "difficulty": "advanced"}
+{"text": "nuclear fission occurs when a heavy atomic nucleus splits into two lighter nuclei releasing enormous energy because the binding energy per nucleon is higher for the products than for the original heavy nucleus and this energy difference is what powers nuclear reactors and atomic bombs", "domain": "physics", "difficulty": "advanced"}
+{"text": "the doppler effect describes how the observed frequency of a wave changes when the source and observer are moving relative to each other approaching objects have higher frequency and receding objects have lower frequency and this applies to both sound waves and light waves in space", "domain": "physics", "difficulty": "advanced"}
+{"text": "in quantum field theory particles are excitations of underlying quantum fields that permeate all of space and every type of particle has its own field electrons arise from the electron field photons from the electromagnetic field and the interactions between fields give rise to forces", "domain": "physics", "difficulty": "advanced"}
+{"text": "the equivalence principle states that the effects of gravity are locally indistinguishable from the effects of acceleration in a small enough region of spacetime a person in a closed elevator cannot tell whether they are standing on earth or being accelerated through space at one g", "domain": "physics", "difficulty": "advanced"}
+{"text": "potential energy is stored energy due to position or configuration such as a ball held at height or a compressed spring and it can be converted to kinetic energy", "domain": "physics", "difficulty": "intermediate"}
+{"text": "the speed of sound in air is approximately 343 meters per second and depends on temperature pressure and the medium through which the wave travels", "domain": "physics", "difficulty": "intermediate"}

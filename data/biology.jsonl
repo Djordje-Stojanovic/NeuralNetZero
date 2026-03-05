@@ -1,0 +1,50 @@
+{"text": "dna", "domain": "biology", "difficulty": "basic"}
+{"text": "rna", "domain": "biology", "difficulty": "basic"}
+{"text": "atp", "domain": "biology", "difficulty": "basic"}
+{"text": "cell", "domain": "biology", "difficulty": "basic"}
+{"text": "gene", "domain": "biology", "difficulty": "basic"}
+{"text": "protein", "domain": "biology", "difficulty": "basic"}
+{"text": "mitosis", "domain": "biology", "difficulty": "basic"}
+{"text": "enzyme", "domain": "biology", "difficulty": "basic"}
+{"text": "cells are the basic units of all living organisms", "domain": "biology", "difficulty": "basic"}
+{"text": "dna carries the genetic instructions for life", "domain": "biology", "difficulty": "basic"}
+{"text": "proteins are made from chains of amino acids", "domain": "biology", "difficulty": "basic"}
+{"text": "mitochondria produce energy for the cell", "domain": "biology", "difficulty": "basic"}
+{"text": "photosynthesis converts sunlight into chemical energy", "domain": "biology", "difficulty": "basic"}
+{"text": "evolution occurs through natural selection", "domain": "biology", "difficulty": "basic"}
+{"text": "enzymes catalyze biochemical reactions in cells", "domain": "biology", "difficulty": "basic"}
+{"text": "the cell membrane controls what enters and exits the cell", "domain": "biology", "difficulty": "basic"}
+{"text": "oxygen is produced as a byproduct of photosynthesis in plants", "domain": "biology", "difficulty": "basic"}
+{"text": "the nucleus contains the genetic material of a eukaryotic cell", "domain": "biology", "difficulty": "basic"}
+{"text": "ribosomes are the cellular structures responsible for assembling proteins from amino acids following messenger rna instructions", "domain": "biology", "difficulty": "basic"}
+{"text": "homeostasis is the ability of an organism to maintain stable internal conditions despite changes in the external environment", "domain": "biology", "difficulty": "basic"}
+{"text": "dna replication is the process by which a cell copies its entire genome before dividing ensuring each daughter cell receives a complete set of genetic instructions", "domain": "biology", "difficulty": "intermediate"}
+{"text": "transcription copies a gene from dna into messenger rna and translation reads the messenger rna to build a protein from amino acids at the ribosome", "domain": "biology", "difficulty": "intermediate"}
+{"text": "natural selection acts on variation within a population and organisms with traits better suited to their environment are more likely to survive and reproduce passing those traits to offspring", "domain": "biology", "difficulty": "intermediate"}
+{"text": "cellular respiration breaks down glucose in the presence of oxygen to produce atp carbon dioxide and water providing energy for all cellular processes", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the krebs cycle occurs in the mitochondrial matrix and generates electron carriers that fuel oxidative phosphorylation to produce the majority of atp in aerobic organisms", "domain": "biology", "difficulty": "intermediate"}
+{"text": "meiosis is a type of cell division that produces four genetically unique haploid cells from one diploid cell and is essential for sexual reproduction and genetic diversity", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the central dogma of molecular biology describes the flow of genetic information from dna to rna to protein and this directional flow underlies all gene expression in living organisms", "domain": "biology", "difficulty": "intermediate"}
+{"text": "ecosystems consist of communities of organisms interacting with their physical environment and energy flows through trophic levels from producers to consumers to decomposers", "domain": "biology", "difficulty": "intermediate"}
+{"text": "mutations are changes in the dna sequence that can be caused by errors in replication or environmental factors and they provide the raw material for evolution by introducing genetic variation", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the immune system defends the body against pathogens using innate responses like inflammation and adaptive responses like antibody production by specialized white blood cells", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the human genome contains approximately three billion base pairs of dna organized into twenty three pairs of chromosomes and encodes roughly twenty thousand protein coding genes along with vast regions of regulatory and noncoding sequences that control when and where genes are expressed", "domain": "biology", "difficulty": "advanced"}
+{"text": "crispr cas9 is a gene editing technology derived from bacterial immune systems that allows scientists to precisely cut and modify dna sequences and it has revolutionized genetics by making targeted modifications faster cheaper and more accurate than any previous method", "domain": "biology", "difficulty": "advanced"}
+{"text": "epigenetics studies heritable changes in gene expression that do not involve alterations to the dna sequence itself but instead involve chemical modifications such as dna methylation and histone modification that can turn genes on or off in response to environmental signals", "domain": "biology", "difficulty": "advanced"}
+{"text": "the endosymbiotic theory proposes that mitochondria and chloroplasts were once free living bacteria that were engulfed by ancestral eukaryotic cells and over time became permanent organelles and this is supported by the fact that both have their own dna and double membranes", "domain": "biology", "difficulty": "advanced"}
+{"text": "signal transduction pathways allow cells to receive process and respond to signals from their environment through cascades of molecular interactions involving receptors kinases and second messengers that ultimately alter gene expression or cellular behavior", "domain": "biology", "difficulty": "advanced"}
+{"text": "the hardy weinberg equilibrium describes the conditions under which allele frequencies in a population remain constant across generations and deviations from equilibrium indicate that evolutionary forces such as selection drift mutation or migration are acting", "domain": "biology", "difficulty": "advanced"}
+{"text": "stem cells are undifferentiated cells capable of self renewal and differentiation into specialized cell types and they play crucial roles in development tissue repair and hold enormous potential for regenerative medicine", "domain": "biology", "difficulty": "advanced"}
+{"text": "the carbon cycle describes how carbon moves between the atmosphere biosphere oceans and geosphere through processes including photosynthesis respiration decomposition and combustion of fossil fuels and human activities have significantly altered this cycle by releasing stored carbon", "domain": "biology", "difficulty": "advanced"}
+{"text": "neurotransmitters are chemical messengers released at synapses that transmit signals between neurons and they include molecules like dopamine serotonin and acetylcholine which regulate mood movement memory and many other functions", "domain": "biology", "difficulty": "advanced"}
+{"text": "the lac operon in bacteria is a classic example of gene regulation where the presence of lactose induces transcription of genes needed to metabolize it while glucose represses the operon demonstrating how cells efficiently control gene expression in response to their environment", "domain": "biology", "difficulty": "advanced"}
+{"text": "chloroplasts contain chlorophyll which absorbs light energy and uses it to drive the light reactions and calvin cycle of photosynthesis", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the nervous system transmits electrical signals through neurons allowing rapid communication between the brain and the rest of the body", "domain": "biology", "difficulty": "intermediate"}
+{"text": "osmosis is the movement of water across a semipermeable membrane from a region of low solute concentration to high solute concentration", "domain": "biology", "difficulty": "intermediate"}
+{"text": "genetic drift is a random change in allele frequency that has a stronger effect in small populations and can lead to loss of genetic variation", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the nitrogen cycle involves the conversion of atmospheric nitrogen into forms usable by living organisms through fixation nitrification and denitrification", "domain": "biology", "difficulty": "intermediate"}
+{"text": "antibiotics target specific bacterial structures or processes such as cell wall synthesis or protein translation without harming human cells", "domain": "biology", "difficulty": "intermediate"}
+{"text": "hormones are chemical signals produced by endocrine glands that travel through the bloodstream to regulate growth metabolism and reproduction", "domain": "biology", "difficulty": "intermediate"}
+{"text": "viruses are not considered living organisms because they cannot reproduce independently and must hijack host cell machinery to replicate their genetic material", "domain": "biology", "difficulty": "intermediate"}
+{"text": "the double helix structure of dna was discovered by watson and crick and consists of two complementary strands held together by hydrogen bonds between base pairs", "domain": "biology", "difficulty": "intermediate"}
+{"text": "biodiversity refers to the variety of life at all levels from genes to species to ecosystems and greater biodiversity generally increases ecosystem resilience", "domain": "biology", "difficulty": "intermediate"}

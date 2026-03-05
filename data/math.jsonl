@@ -1,0 +1,50 @@
+{"text": "a+b=b+a", "domain": "math", "difficulty": "basic"}
+{"text": "pi=3.14", "domain": "math", "difficulty": "basic"}
+{"text": "a^2+b^2=c^2", "domain": "math", "difficulty": "basic"}
+{"text": "0!=1", "domain": "math", "difficulty": "basic"}
+{"text": "e=2.718", "domain": "math", "difficulty": "basic"}
+{"text": "i^2=-1", "domain": "math", "difficulty": "basic"}
+{"text": "sum=n(n+1)/2", "domain": "math", "difficulty": "basic"}
+{"text": "ax^2+bx+c=0", "domain": "math", "difficulty": "basic"}
+{"text": "addition is commutative meaning a plus b equals b plus a", "domain": "math", "difficulty": "basic"}
+{"text": "multiplication distributes over addition", "domain": "math", "difficulty": "basic"}
+{"text": "the pythagorean theorem relates the sides of a right triangle", "domain": "math", "difficulty": "basic"}
+{"text": "prime numbers are divisible only by one and themselves", "domain": "math", "difficulty": "basic"}
+{"text": "zero is the additive identity element", "domain": "math", "difficulty": "basic"}
+{"text": "one is the multiplicative identity element", "domain": "math", "difficulty": "basic"}
+{"text": "negative times negative equals positive", "domain": "math", "difficulty": "basic"}
+{"text": "the area of a circle is pi times the radius squared", "domain": "math", "difficulty": "basic"}
+{"text": "a function maps each input to exactly one output", "domain": "math", "difficulty": "basic"}
+{"text": "the slope of a line is the change in y divided by the change in x", "domain": "math", "difficulty": "basic"}
+{"text": "logarithm is the inverse operation of exponentiation", "domain": "math", "difficulty": "basic"}
+{"text": "absolute value gives the distance of a number from zero on the number line", "domain": "math", "difficulty": "basic"}
+{"text": "the derivative of a function gives the instantaneous rate of change at any point and is defined as the limit of the difference quotient as the interval approaches zero", "domain": "math", "difficulty": "intermediate"}
+{"text": "integration is the reverse of differentiation and computes the area under a curve between two bounds using the fundamental theorem of calculus", "domain": "math", "difficulty": "intermediate"}
+{"text": "the quadratic formula gives the solutions of ax squared plus bx plus c equals zero as x equals negative b plus or minus the square root of b squared minus four ac all divided by two a", "domain": "math", "difficulty": "intermediate"}
+{"text": "a matrix is a rectangular array of numbers and matrix multiplication combines rows of the first matrix with columns of the second to produce a new matrix", "domain": "math", "difficulty": "intermediate"}
+{"text": "the binomial theorem expands the power of a sum into a series of terms involving binomial coefficients", "domain": "math", "difficulty": "intermediate"}
+{"text": "euler's formula states that e to the power of i times theta equals cosine theta plus i times sine theta connecting exponential and trigonometric functions in the complex plane", "domain": "math", "difficulty": "intermediate"}
+{"text": "probability measures the likelihood of an event occurring and ranges from zero meaning impossible to one meaning certain", "domain": "math", "difficulty": "intermediate"}
+{"text": "the chain rule in calculus states that the derivative of a composite function equals the derivative of the outer function times the derivative of the inner function", "domain": "math", "difficulty": "intermediate"}
+{"text": "a vector space is a collection of vectors that can be added together and multiplied by scalars while satisfying specific axioms of closure associativity and distributivity", "domain": "math", "difficulty": "intermediate"}
+{"text": "the central limit theorem states that the distribution of sample means approaches a normal distribution as the sample size increases regardless of the shape of the population distribution", "domain": "math", "difficulty": "intermediate"}
+{"text": "the fundamental theorem of algebra states that every non constant polynomial equation with complex coefficients has at least one complex root and a polynomial of degree n has exactly n roots counted with multiplicity", "domain": "math", "difficulty": "advanced"}
+{"text": "a group in abstract algebra is a set equipped with an operation that satisfies closure associativity has an identity element and every element has an inverse and groups capture the essence of symmetry in mathematics", "domain": "math", "difficulty": "advanced"}
+{"text": "the riemann integral partitions an interval into subintervals and approximates the area under a curve by summing rectangles and as the partition becomes finer the sum converges to the exact area if the function is integrable", "domain": "math", "difficulty": "advanced"}
+{"text": "eigenvalues and eigenvectors of a matrix describe the directions along which a linear transformation acts by scaling without changing direction and they are fundamental to understanding dynamical systems quantum mechanics and principal component analysis", "domain": "math", "difficulty": "advanced"}
+{"text": "taylors theorem states that any sufficiently smooth function can be approximated near a point by a polynomial whose coefficients are determined by the derivatives of the function at that point and the accuracy improves as more terms are included", "domain": "math", "difficulty": "advanced"}
+{"text": "the divergence theorem relates the flux of a vector field through a closed surface to the divergence of the field inside the volume and it connects surface integrals to volume integrals generalizing the fundamental theorem of calculus to three dimensions", "domain": "math", "difficulty": "advanced"}
+{"text": "a topological space is a set together with a collection of open sets satisfying specific axioms and topology studies properties that are preserved under continuous deformations like stretching and bending but not tearing or gluing", "domain": "math", "difficulty": "advanced"}
+{"text": "the fourier transform decomposes a function into its constituent frequencies and is fundamental to signal processing physics and engineering allowing analysis of periodic and non periodic signals in the frequency domain", "domain": "math", "difficulty": "advanced"}
+{"text": "cantors diagonal argument proves that the set of real numbers is uncountably infinite meaning there is no way to list all real numbers in a sequence even though the natural numbers and rationals are both countably infinite", "domain": "math", "difficulty": "advanced"}
+{"text": "differential equations describe how quantities change over time and they model physical phenomena from planetary orbits to population growth with solutions that can be exact or approximated numerically", "domain": "math", "difficulty": "advanced"}
+{"text": "the law of large numbers states that as the number of trials increases the sample average converges to the expected value", "domain": "math", "difficulty": "intermediate"}
+{"text": "modular arithmetic studies remainders after division and forms the basis of number theory and modern cryptography", "domain": "math", "difficulty": "intermediate"}
+{"text": "sine and cosine are periodic functions that describe oscillation and relate angles to ratios of sides in right triangles", "domain": "math", "difficulty": "basic"}
+{"text": "the fibonacci sequence starts with zero and one and each subsequent number is the sum of the two preceding numbers", "domain": "math", "difficulty": "basic"}
+{"text": "mathematical induction proves statements for all natural numbers by showing the base case and that each case implies the next", "domain": "math", "difficulty": "intermediate"}
+{"text": "the determinant of a matrix is a scalar value that indicates whether the matrix is invertible and describes how the transformation scales areas or volumes", "domain": "math", "difficulty": "intermediate"}
+{"text": "bayes theorem describes how to update the probability of a hypothesis given new evidence using prior probability and the likelihood of the observed data", "domain": "math", "difficulty": "intermediate"}
+{"text": "complex numbers extend the real numbers by including the imaginary unit i which satisfies i squared equals negative one", "domain": "math", "difficulty": "intermediate"}
+{"text": "the triangle inequality states that the sum of the lengths of any two sides of a triangle must be greater than the length of the remaining side", "domain": "math", "difficulty": "basic"}
+{"text": "a continuous function has no breaks jumps or holes in its graph and small changes in input produce small changes in output", "domain": "math", "difficulty": "intermediate"}
