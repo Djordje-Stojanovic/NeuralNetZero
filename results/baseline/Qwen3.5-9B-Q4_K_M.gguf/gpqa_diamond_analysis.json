@@ -1,0 +1,132 @@
+{
+  "benchmark": "gpqa_diamond_cot_zeroshot",
+  "model": "Qwen3.5-9B-Q4_K_M.gguf",
+  "date": "2026-03-06",
+  "config": {
+    "server": "llama-server b8215 CUDA 13.1",
+    "parallel_slots": 6,
+    "ctx_per_slot": 18432,
+    "max_gen_toks": 4096,
+    "temperature": 0.0,
+    "vram_usage_gb": 10.4,
+    "runtime_minutes": 70.5
+  },
+  "results": {
+    "score_flexible_extract": 0.5202,
+    "score_stderr": 0.0356,
+    "total_questions": 198,
+    "correct": 103,
+    "wrong": 91,
+    "extraction_failed": 4,
+    "truncated": 1,
+    "accuracy_pct": 52.0
+  },
+  "response_stats": {
+    "avg_words": 1833,
+    "min_words": 748,
+    "max_words": 3038
+  },
+  "answer_distribution": {
+    "(A)": {
+      "total": 56,
+      "correct": 27,
+      "accuracy_pct": 48.2
+    },
+    "(B)": {
+      "total": 60,
+      "correct": 26,
+      "accuracy_pct": 43.3
+    },
+    "(C)": {
+      "total": 46,
+      "correct": 26,
+      "accuracy_pct": 56.5
+    },
+    "(D)": {
+      "total": 36,
+      "correct": 24,
+      "accuracy_pct": 66.7
+    }
+  },
+  "examples_correct": [
+    {
+      "doc_id": 3,
+      "target": "(C)",
+      "words": 2337
+    },
+    {
+      "doc_id": 6,
+      "target": "(C)",
+      "words": 1786
+    },
+    {
+      "doc_id": 7,
+      "target": "(A)",
+      "words": 2185
+    },
+    {
+      "doc_id": 8,
+      "target": "(D)",
+      "words": 1838
+    },
+    {
+      "doc_id": 9,
+      "target": "(B)",
+      "words": 2045
+    }
+  ],
+  "examples_wrong": [
+    {
+      "doc_id": 0,
+      "target": "(D)",
+      "extracted": "(C)",
+      "words": 1741
+    },
+    {
+      "doc_id": 1,
+      "target": "(C)",
+      "extracted": "(O)",
+      "words": 1436
+    },
+    {
+      "doc_id": 2,
+      "target": "(D)",
+      "extracted": "(B)",
+      "words": 1520
+    },
+    {
+      "doc_id": 4,
+      "target": "(C)",
+      "extracted": "(A)",
+      "words": 1655
+    },
+    {
+      "doc_id": 5,
+      "target": "(A)",
+      "extracted": "(D)",
+      "words": 1610
+    }
+  ],
+  "examples_extraction_failed": [
+    {
+      "doc_id": 69,
+      "target": "(B)",
+      "words": 3038
+    },
+    {
+      "doc_id": 112,
+      "target": "(A)",
+      "words": 1175
+    },
+    {
+      "doc_id": 115,
+      "target": "(A)",
+      "words": 748
+    },
+    {
+      "doc_id": 187,
+      "target": "(A)",
+      "words": 1313
+    }
+  ]
+}
