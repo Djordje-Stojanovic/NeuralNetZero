@@ -1,5 +1,5 @@
 # From-Scratch LLM Training Pipeline: Research Report
-## 1K to 100M+ Parameters on a Single RTX 5070 Super (16GB VRAM)
+## 1K to 100M+ Parameters on a Single RTX 5070 (12GB VRAM)
 ### As of March 5, 2026
 
 ---
@@ -130,7 +130,7 @@ nanochat uses cosine with linear warmup. For your single-GPU pipeline where you 
 
 ### 2.3 Gradient Accumulation on Single GPU
 
-Your RTX 5070 Super has 16GB VRAM. For small models, the constraint isn't model size — it's batch size.
+Your RTX 5070 has 12GB VRAM. For small models, the constraint isn't model size — it's batch size.
 
 **Target effective batch size by scale:**
 
@@ -155,7 +155,7 @@ if (step + 1) % accumulation_steps == 0:
 
 ### 2.4 Mixed Precision Training: FP32 vs BF16 vs FP8
 
-**BF16 is your default.** The RTX 5070 Super (Blackwell, sm_120) supports FP32, BF16, FP16, FP8, and FP4 via 5th-gen Tensor Cores.
+**BF16 is your default.** The RTX 5070 (Blackwell, sm_120) supports FP32, BF16, FP16, FP8, and FP4 via 5th-gen Tensor Cores.
 
 **Precision recommendations by component:**
 
@@ -170,7 +170,7 @@ if (step + 1) % accumulation_steps == 0:
 
 **FP8 Training on Blackwell:**
 
-FP8 training is viable on your RTX 5070 Super via NVIDIA's Transformer Engine library. Key points:
+FP8 training is viable on your RTX 5070 via NVIDIA's Transformer Engine library. Key points:
 
 - Transformer Engine (TE) supports FP8 on Hopper, Ada, and Blackwell architectures
 - Uses delayed scaling: tracks activation statistics over recent steps to set per-tensor FP8 scale factors
@@ -217,7 +217,7 @@ model = torch.compile(model)  # That's it
 **FlashAttention-2 is your workhorse.** Pre-compiled wheels for Blackwell exist (flash_attn 2.7.4+, community builds on HuggingFace by marcorez8 and loscrossos). FA2 gives:
 - O(N) memory instead of O(N²) for attention
 - 2–3× speedup over naive attention at sequence length ≥512
-- Critical for fitting longer contexts in 16GB VRAM
+- Critical for fitting longer contexts in 12GB VRAM
 
 **FlashAttention-3:** Optimized for Hopper (H100) with warp-specialization and GEMM-softmax pipelining. As of March 2026, FA3 does NOT support Blackwell consumer GPUs (sm_120) — there's an open issue (#1853) on the Dao-AILab repo. FA3 is Hopper-only for now.
 
@@ -474,9 +474,27 @@ Where N = parameters, D = training tokens, E = irreducible loss, and α, β are 
 
 This saves enormous time and compute — you catch problems at small scale before investing in large runs.
 
+### 5.4 Evaluation at 9B+ Scale (Sovereign Pipeline)
+
+At 9B+ parameters with post-training, evaluation shifts fundamentally from pretraining metrics to benchmark suites.
+
+**From BPB to benchmarks.** During pretraining, bits-per-byte and perplexity are the primary signals -- they're cheap, fast, and correlate with downstream quality. After post-training (SFT, RL, distillation), these metrics become unreliable: a model can have higher perplexity but dramatically better reasoning. Benchmark accuracy on held-out problem sets becomes the ground truth.
+
+**The Sovereign 10.** For the CogCore-9B-Sovereign pipeline, 10 primary benchmarks were selected for low contamination, remaining headroom, and coverage of target capabilities: GPQA Diamond (science), SuperGPQA (breadth), MMLU-Pro (knowledge+reasoning), AIME 2025 (math), LiveCodeBench v6 (code), BFCL-V4 (tool use), TAU2-Bench (agents), RULER (working memory), IFEval (instruction following), LongBench v2 (long context). Saturated benchmarks (GSM8K, MMLU original, HumanEval original) are excluded -- they no longer differentiate models at this scale.
+
+**Quick eval vs Full eval.** A "quick eval" (~750 problems, <30 minutes) runs after every checkpoint to catch regressions. A "full eval" (~5-6 hours, all 10 benchmarks at full size) runs at phase boundaries. This tiered approach balances signal quality with iteration speed.
+
+**Statistical rigor.** At 9B scale, claiming improvement requires more than eyeballing numbers. McNemar tests (paired, same problems) establish significance for "Model A beats Model B" claims. Wilson confidence intervals quantify uncertainty. Minimum sample sizes (500+ for model comparisons, 200+ for phase-over-phase) prevent false positives. If confidence intervals overlap, the claim is not supported.
+
+**Contamination prevention.** With models trained on trillions of tokens, benchmark contamination is a real risk. Blocklists of exact benchmark texts, n-gram matching (8-gram), and SBERT similarity filtering (threshold 0.92) catch direct and paraphrased leakage. A paraphrase audit (re-test with modified problems) validates that improvements reflect genuine capability, not memorization.
+
+**LLM-as-judge for custom domains.** Where no standard benchmark exists (first-principles physics, SAP/ABAP, financial analysis), a structured rubric + frontier LLM judge (calibrated against 20% human spot-check, Cohen's kappa > 0.7) provides scalable evaluation. This is essential for measuring the unique capabilities that differentiate a sovereign model.
+
+See PLAN.md Section 7.5 for the full evaluation framework, schedule, and report card template.
+
 ---
 
-## 6. Cutting-Edge Techniques (2025–2026)
+## 6. Cutting-Edge Techniques (2025-2026)
 
 ### 6.1 nanochat (Karpathy)
 
@@ -556,7 +574,7 @@ Batch size: 32 sequences = 4096 tokens
 Optimizer: AdamW (lr=1e-3, betas=(0.9, 0.95), wd=0.1)
 Schedule: Cosine, 100 warmup steps
 Precision: FP32 (model is tiny, no need for mixed precision)
-Training time: ~5 minutes on RTX 5070 Super
+Training time: ~5 minutes on RTX 5070
 
 Expected result: Learns character frequencies, common character bigrams
 Not expected: Coherent words or grammar
@@ -649,14 +667,14 @@ Schedule: WSD (warmup 1%, stable 85%, decay 14%)
 Precision: BF16, consider FP8 via Transformer Engine
 Flash Attention: FA2 or PyTorch SDPA
 torch.compile: mode="max-autotune"
-Training time: ~3–7 days on RTX 5070 Super
+Training time: ~3–7 days on RTX 5070
 
 VRAM budget (approximate):
   Model params (BF16): ~200MB
   Optimizer states (FP32 master + momentum): ~800MB
   Activations (with gradient checkpointing): ~2–4GB
   Batch data: ~1–2GB
-  Total: ~5–7GB → fits comfortably in 16GB
+  Total: ~5–7GB → fits comfortably in 12GB
 
 Expected: Coherent STEM explanations, can complete equations,
           basic problem-solving in familiar patterns
@@ -665,20 +683,20 @@ Not expected: GPT-2 level fluency (that requires ~500M+ params)
 
 ---
 
-## Appendix A: RTX 5070 Super Specs for Training
+## Appendix A: RTX 5070 Specs for Training
 
 | Spec | Value | Implication |
 |------|-------|-------------|
 | Architecture | Blackwell (sm_120) | 5th-gen Tensor Cores |
-| VRAM | 16GB GDDR7 | Fits up to ~500M params in BF16 with optimizer states |
+| VRAM | 12GB GDDR7 | Fits up to ~500M params in BF16 with optimizer states |
 | Memory bandwidth | ~672 GB/s | Decent for single-GPU training |
 | FP32 TFLOPS | ~30 (estimated) | Baseline compute |
 | BF16 Tensor TFLOPS | ~120 (estimated) | Primary training precision |
 | FP8 Tensor TFLOPS | ~240 (estimated) | Available via Transformer Engine |
-| TDP | 250W (standard) / 300W (Super) | Sustainable for multi-day training |
+| TDP | 250W | Sustainable for multi-day training |
 | PCIe | Gen 5 | CPU↔GPU transfer not a bottleneck |
 
-**Key constraint:** 16GB VRAM limits batch size at 100M+ params. Use gradient checkpointing (`torch.utils.checkpoint`) to trade compute for memory when needed.
+**Key constraint:** 12GB VRAM limits batch size at 100M+ params. Use gradient checkpointing (`torch.utils.checkpoint`) to trade compute for memory when needed.
 
 ---
 

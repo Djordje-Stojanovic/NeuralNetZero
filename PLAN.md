@@ -524,25 +524,34 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 
 ## 7. Expected Outcomes
 
-### 7.1 Benchmark Targets
+### 7.1 Benchmark Targets -- The Sovereign 10
 
-| Benchmark | Stock Qwen 3.5 9B | After Pipeline | Equivalent |
-|---|---|---|---|
-| MMLU-Pro | 82.5 | 80-84 | 15-20B |
-| GPQA Diamond | 81.7 | 85-90 | 30-50B |
-| SuperGPQA | 58.2 | 65-72 | 25-40B |
-| HMMT Feb 25 | 83.2 | 87-92 | 30-50B |
-| AIME 2024 | ~40-55 (est.) | 55-70 | 30-50B |
-| LiveCodeBench v6 | 65.6 | 72-80 | 20-30B |
-| HumanEval | ~75-85 (est.) | 85-95 | 25-40B |
-| BFCL-V4 (tool use) | 66.1 | 80-90 | 25-35B |
-| TAU2-Bench (agent) | 79.1 | 85-92 | 30-50B |
-| IFEval | 91.5 | 92-95 | 30B+ |
-| Physics derivations | Mediocre | Exceptional | Unique |
-| SAP/ABAP | Surface-level | Expert-level | Unique |
-| Financial analysis | Generic | Framework-grade | Unique |
-| German STEM | Good | Excellent | Best-in-class at 9B |
-| Serbian | Adequate | Good+ | Unique |
+Primary benchmark suite. All 10 run before and after every major phase.
+
+| # | Benchmark | Measures | Stock 9B | Target | Equivalent |
+|---|---|---|---|---|---|
+| 1 | **GPQA Diamond** | Scientific reasoning (PhD-level, 198 Qs) | 81.7 | 85-90 | 30-50B |
+| 2 | **SuperGPQA** | Broad graduate reasoning (285 disciplines) | 58.2 | 65-72 | 25-40B |
+| 3 | **MMLU-Pro** | Knowledge + reasoning (10-option, graduate) | 82.5 | 82-86 | 15-20B |
+| 4 | **AIME 2025** | Competition math (novel, post-training-data) | ~40-55 est. | 55-70 | 30-50B |
+| 5 | **LiveCodeBench v6** | Practical coding (continuous refresh, exec-verified) | 65.6 | 72-80 | 20-30B |
+| 6 | **BFCL-V4** | Tool use + function calling (multi-turn) | 66.1 | 80-90 | 25-35B |
+| 7 | **TAU2-Bench** | Multi-turn agentic reasoning (enterprise) | 79.1 | 85-92 | 30-50B |
+| 8 | **RULER** | Working memory + context degradation (4K-128K) | N/A | Establish baseline | -- |
+| 9 | **IFEval** | Instruction following + format adherence | 91.5 | 92-95 | 30B+ |
+| 10 | **LongBench v2** | Long-context reasoning (8K-2M) | 55.2 | 60-68 | 20-30B |
+
+**Dead benchmarks (do NOT use for differentiation):** GSM8K (~96-99%, trivial), MMLU original (~92%+, saturated/contaminated), HumanEval original (~92-95%, too simple). These prove nothing in 2026.
+
+**Custom domains (no standard benchmark):**
+
+| Domain | Target | Equivalent |
+|---|---|---|
+| Physics derivations | Exceptional (first-principles from axioms) | Unique |
+| SAP/ABAP | Expert-level production code | Unique |
+| Financial analysis | Framework-grade analytical reasoning | Unique |
+| German STEM | Excellent | Best-in-class at 9B |
+| Serbian | Good+ | Unique |
 
 ### 7.2 The Honest Ceiling
 
@@ -571,13 +580,155 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 7. 3-language specialization (concentrated vs spread across 201)
 8. Tool use RL with execution feedback
 
+### 7.5 Evaluation Framework
+
+#### Primary Framework: lm-evaluation-harness
+
+Covers 95% of benchmarks. Install: `pip install "lm_eval[hf,vllm]"`. Serve model via llama.cpp or vLLM on port 8000, then point all benchmarks at `http://localhost:8000/v1`.
+
+#### Secondary Benchmarks (Phase Boundaries Only)
+
+| Benchmark | Measures | When |
+|---|---|---|
+| **ARC-AGI-2** | Novel abstract logical reasoning | After Phase 7, Phase 12 |
+| **FrontierMath** | Expert-original math (<2-5% frontier solve) | After Phase 7, Phase 12 |
+| **SWE-bench Verified** | Multi-file real-world code debugging | After Phase 8a |
+| **ZebraLogic** | Pure logic grid puzzles | After Phase 7 |
+| **HMMT Feb 25** | Competition math (stock: 83.2) | After Phase 7 |
+| **OJBench** | Algorithmic coding (stock: 29.2) | After Phase 8a |
+| **BABILong** | Distributed fact reasoning over long context | After Phase 11 |
+| **MultiChallenge** | Complex multi-constraint instruction following | After Phase 9 |
+
+#### Custom Evaluations
+
+| Domain | Method | Sample Size |
+|---|---|---|
+| **First-principles physics** | LLM-as-judge (rubric 0-10: axiom ID, logical flow, math correctness, self-verification, completeness) + human spot-check 20% | 200 problems |
+| **SAP/ABAP** | ABAP sandbox execution + manual review | 100 scenarios |
+| **Financial analysis** | Rubric: framework correctness, assumptions, math | 100 scenarios |
+| **Semiconductor** | Custom MCQ (post-2025 papers) + open-ended derivations | 150 problems |
+| **German STEM** | Translated MGSM + Eisvogel subset + custom physics | 200 problems |
+| **Serbian fluency** | Custom translation + reasoning + Serbian-LLM-eval | 100 problems |
+| **Extended thinking** | Accuracy vs thinking budget curves (50/200/800/2000/4000 tokens) | 100 hard problems x 5 budgets |
+
+#### Quick Eval (<30 min, 750 problems)
+
+Run after every LoRA checkpoint to detect regressions within a phase.
+
+| Benchmark | Subset | Problems | Time |
+|---|---|---|---|
+| GPQA Diamond | 50 hardest (pre-selected) | 50 | ~5 min |
+| MMLU-Pro | Random sample | 100 | ~5 min |
+| MATH-500 | Full | 500 | ~10 min |
+| LiveCodeBench mini | Recent 100 | 100 | ~10 min |
+
+#### Full Eval (~5-6 hours)
+
+Run at phase boundaries. All 10 Sovereign benchmarks at full size + 50 custom physics problems.
+
+#### Evaluation Schedule per Phase
+
+| Phase | After | Run |
+|---|---|---|
+| Pre-pipeline | Download stock model | **Full eval** (baseline "before" numbers) |
+| Phase 1 (vocab surgery) | If done | Quick eval (verify no regression) |
+| Phase 2 (CPT) | Completed CPT | **Full eval** (domain gains vs general regression) |
+| Phase 3 (trace gen) | N/A | No eval (data generation, not training) |
+| Phase 4 (cold-start SFT) | After 10K examples | Quick eval + custom physics 20 problems |
+| Phase 5 (CoT distillation) | Every 50K examples | Quick eval. **Full eval** at end. |
+| Phase 6 (on-policy KD) | Each round | Quick eval. **Full eval** at final round. |
+| Phase 7 (GRPO RL) | Each difficulty stage | Quick eval + AIME full. **Full eval** at end. |
+| Phase 8a (coding RL) | End | Quick eval + LiveCodeBench full + SWE-bench |
+| Phase 8b (agentic RL) | End | Quick eval + BFCL-V4 full + TAU2 full |
+| Phase 8c (alignment) | End | Quick eval + safety regression check |
+| Phase 9 (tool use SFT) | End | Quick eval + BFCL-V4 + TAU2 + MultiChallenge |
+| Phase 10 (extended thinking) | End | Quick eval + AIME with budget forcing curves |
+| Phase 11 (working memory) | End | Quick eval + RULER full + BABILong |
+| Phase 12 (deploy) | Final merged model | **Full eval** + ALL secondary + ALL custom + Arena submission prep |
+
+#### Thinking Mode Protocol
+
+1. Always enable thinking mode (`<think>...</think>`) during evaluation
+2. Do NOT strip thinking tokens before scoring
+3. Record both accuracy AND average thinking tokens per problem
+4. Compare stock vs fine-tuned at equal thinking budgets AND natural budget
+5. Budget forcing test on hard problems: accuracy vs token budget curves
+
+#### Statistical Rigor
+
+- **McNemar test** (paired, same problems) for "Model A beats Model B" claims (500+ samples, p<0.05)
+- **Wilson confidence intervals** (95%) on all benchmark scores; non-overlapping CIs required for improvement claims
+- **Paired t-test** on per-sample scores for "improved after Phase N" (200+ samples)
+
+#### Regression Red Lines (Stop Training)
+
+| Metric | Red Line | Action |
+|---|---|---|
+| GPQA Diamond | Drops >3pp from previous phase best | Stop. Investigate. Restore checkpoint. |
+| MMLU-Pro | Drops >4pp from stock baseline | Increase replay buffer to 30%. |
+| LiveCodeBench | Drops >5pp from previous phase | Restore checkpoint. Check data contamination. |
+| IFEval | Drops >3pp from stock (below 88%) | Critical: format adherence broken. Fix before continuing. |
+| Custom physics | Qualitative degradation (judge scores drop) | Review training data quality. |
+| Any benchmark | Drops >2pp from immediate prior phase | Warning. Log and monitor next phase closely. |
+
+#### Forgetting Canaries
+
+20 problems checked every phase (5 general knowledge, 5 math, 5 code, 5 instruction following). If canary accuracy drops >20% relative: catastrophic forgetting in progress, increase replay buffer.
+
+#### Contamination Prevention
+
+1. **Blocklist** exact benchmark problem texts from all 10 Sovereign benchmarks in training data
+2. **n-gram matching** (8-gram) to catch paraphrased versions; SBERT similarity (threshold 0.92) as secondary filter
+3. **Exclude** known benchmark datasets and their hosting pages from CPT corpus
+4. **Custom physics eval set**: keep offline/private, add canary strings, never upload to cloud
+5. **Paraphrase audit** before claiming improvement: paraphrase 50 problems, if accuracy drops >15pp = contamination
+
+#### Quantization Rule
+
+Always benchmark at deployment quantization (Q4_K_M or MXFP4). BF16 numbers look better but mean nothing for deployment. Run BF16 once at baseline for reference, then everything at Q4/MXFP4.
+
+#### Final Report Card Template
+
+After Phase 12, produce this exact table:
+
+```
+=== CogCore-9B-Sovereign v1 -- Final Evaluation Report ===
+Date: [date]
+Hardware: RTX 5070 12GB, Q4_K_M / MXFP4
+Framework: lm-evaluation-harness v0.4.x + custom
+
+PRIMARY SUITE (Sovereign 10):
+| Benchmark         | Stock 9B | Sovereign | Delta  | 95% CI    |
+|-------------------|----------|-----------|--------|-----------|
+| GPQA Diamond      | 81.7%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| SuperGPQA         | 58.2%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| MMLU-Pro          | 82.5%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| AIME 2025         | ~??%     |   ?.?%    | +?.?pp | [?.?-?.?] |
+| LiveCodeBench v6  | 65.6%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| BFCL-V4           | 66.1%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| TAU2-Bench        | 79.1%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| RULER (128K)      | N/A      |   ?.?%    | base   | [?.?-?.?] |
+| IFEval            | 91.5%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+| LongBench v2      | 55.2%    |   ?.?%    | +?.?pp | [?.?-?.?] |
+
+SECONDARY: ARC-AGI-2, FrontierMath, SWE-bench, ZebraLogic, HMMT, BABILong
+CUSTOM: Physics (0-10 scale), SAP/ABAP, Financial, Semiconductor, German STEM, Serbian
+EXTENDED THINKING: AIME budget forcing curves (200/800/2000/4000/unbounded tokens)
+WORKING MEMORY: RULER degradation curve (4K/16K/64K/128K)
+INFERENCE: Quant, speed, max context, MTP speedup
+STATISTICAL: McNemar p-values, CIs, contamination audit
+```
+
 ---
 
 ## 8. Phase Checklist
 
 ### Pre-Pipeline
-- [ ] Download Qwen 3.5 9B from HuggingFace
-- [ ] Benchmark stock model: MMLU-Pro, GPQA Diamond, HMMT, GSM8K, MATH, HumanEval, ARC, BFCL-V4, TAU2
+- [ ] Download Qwen 3.5 9B (GGUF for inference, HF for training)
+- [ ] Setup lm-evaluation-harness (`pip install "lm_eval[hf,vllm]"`)
+- [ ] Setup model serving (llama.cpp server or LM Studio API on port 1234)
+- [ ] Run Full Eval (Sovereign 10) -- establish baseline
+- [ ] Record 20 forgetting canary problems
 - [ ] Setup Unsloth + PEFT + TRL + llama.cpp (Blackwell build, sm_120)
 - [ ] Verify QLoRA training works: small test run (100 examples, 5 minutes)
 - [ ] Setup vLLM for local inference (rollout generation)
@@ -610,15 +761,15 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 - [ ] Select top 10K traces
 - [ ] Enable DoRA + NEFTune + rsLoRA
 - [ ] QLoRA SFT on 5070 (3-5 days)
-- [ ] Checkpoint + benchmark
+- [ ] Quick eval + custom physics 20 problems
 
 ### Phase 5: CoT Distillation
 - [ ] Full 400-600K trace SFT on 5070 (7-14 days)
 - [ ] Enable sample-level attention masks for packing
 - [ ] Enable progressive seq length (2048 -> 4096 at 30%)
-- [ ] Checkpoint every 50K examples
+- [ ] Quick eval every 50K examples
 - [ ] Average last 3-5 checkpoints at end
-- [ ] Compare to stock: expect +3-8 points on reasoning
+- [ ] **Full eval** at end. Expect +3-8 points on reasoning.
 
 ### Phase 6: On-Policy KD
 - [ ] Setup GKD pipeline (student generates -> compare to teacher)
@@ -632,30 +783,33 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 - [ ] Enable KV cache q8_0 for rollouts
 - [ ] Freeze embeddings
 - [ ] Run RL on 5070 (14-21 days) or rent H100s (1-2 days)
+- [ ] Quick eval + AIME full each difficulty stage. **Full eval** at end.
 - [ ] Monitor: KL divergence, reward curves, benchmark scores
 
 ### Phase 8: Specialized RL
 - [ ] Coding RL with execution feedback (5-7 days)
+- [ ] Quick eval + LiveCodeBench full + SWE-bench after 8a
 - [ ] Agentic RL with tool execution (3-5 days)
+- [ ] Quick eval + BFCL-V4 full + TAU2 full after 8b
 - [ ] Alignment RL via SimPO (2-3 days)
-- [ ] Benchmark each sub-stage
+- [ ] Quick eval + safety regression check after 8c
 
 ### Phase 9: Tool Use SFT
 - [ ] Curate tool use dataset (50-100K examples)
 - [ ] Enable DoRA + rsLoRA
 - [ ] QLoRA SFT (5-7 days)
-- [ ] Benchmark: BFCL-V4, TAU2
+- [ ] Quick eval + BFCL-V4 + TAU2 + MultiChallenge
 
 ### Phase 10: Extended Thinking
 - [ ] Integrate variable-depth thinking into RL rewards
 - [ ] Train budget forcing (3-5 days)
 - [ ] Test: easy->short think, hard->long think
-- [ ] Benchmark with forced 4K thinking tokens on AIME
+- [ ] Quick eval + AIME with budget forcing curves
 
 ### Phase 11: Working Memory
 - [ ] Generate synthetic working memory tasks (23K)
 - [ ] SFT with 10-20% memory tasks mixed in (3-5 days)
-- [ ] Test: variable tracking, long-range state queries
+- [ ] Quick eval + RULER full + BABILong
 
 ### Phase 12: Deploy
 - [ ] Merge all LoRA adapters (TIES/DARE/SLERP)
@@ -665,7 +819,7 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 - [ ] Test ExLlamaV3 vs llama.cpp performance
 - [ ] Deploy via llama.cpp + Ollama + Continue.dev
 - [ ] Enable torch.compile for serving (WSL2/Linux)
-- [ ] Final benchmark: full suite vs stock
+- [ ] **Full eval** + ALL secondary + ALL custom + Arena submission prep
 - [ ] Enable MTP speculative decoding
 - [ ] Enable KV cache quantization (q8_0)
 - [ ] Enable prompt caching for system prompts
@@ -684,8 +838,9 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 | Vocab surgery breaks special tokens | Model produces garbage | Skip vocab surgery, rely on CPT instead |
 | 10-12 week timeline slips | Delayed deployment | Cut optional phases (vocab surgery, working memory) |
 | RTX 5070 thermal throttling (sustained) | Slower training | Good case airflow, optional undervolt |
-| DoRA/NEFTune regression on math | Lower math scores | Monitor GSM8K after each phase, disable if regression |
+| DoRA/NEFTune regression on math | Lower math scores | Monitor after each phase, disable if regression |
 | torch.compile incompatible with DeltaNet ops | No speedup | Fallback to eager mode |
+| Benchmark contamination in training data | Inflated scores | n-gram blocklist + paraphrase audit (see 7.5) |
 
 ---
 
@@ -767,6 +922,7 @@ Existing code preserved as educational project:
 **Optimizations:** DoRA (arXiv:2402.09353), NEFTune (arXiv:2310.05914), rsLoRA (arXiv:2312.03732), SimPO (arXiv:2405.14734), Spectrum (arXiv:2406.06623)
 **Data:** RHO-1 (perplexity filtering), CLIMB (NVIDIA 2025), MATES (NeurIPS 2024)
 **Inference:** llama.cpp, vLLM, ExLlamaV3, Ollama
+**Evaluation:** lm-evaluation-harness, LiveCodeBench, BFCL (Berkeley), TAU2-Bench, RULER, LongBench v2, WildBench, ARC-AGI-2
 **Prior work:** nGPT (arXiv 2410.01131), NorMuon (arXiv:2510.05491), Polar Express (arXiv:2505.16932)
 
 ---

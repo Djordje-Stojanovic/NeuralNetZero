@@ -15,7 +15,9 @@ If documents contradict each other, lower-numbered docs win.
 ## Current State
 
 - **Track 1 (Sovereign Qwen 3.5 9B):** Strategic pivot -- post-train Qwen 3.5 9B into CogCore-9B-Sovereign
-- Current step: Pre-Pipeline Setup (see CURRENT_STEP.md)
+- Model downloaded + running at 75-85 t/s in LM Studio (Q4_K_M GGUF)
+- Current step: Pre-Pipeline Setup -- baseline benchmarking in progress (see CURRENT_STEP.md)
+- Evaluation framework: Sovereign 10 benchmarks defined (see PLAN.md 7.5)
 - Target: 15-50B dense equivalent on reasoning, 80+ t/s local inference
 - Pipeline: 12 phases, $540-1160, 10-12 weeks
 - **Track 2 (CogCore-1B Educational):** Existing code preserved, not deployment target
@@ -118,6 +120,7 @@ Domains: physics, chemistry, math, biology (~50 examples each).
 - TRL (GRPOTrainer, SFTTrainer)
 - llama.cpp (inference, sm_120 build)
 - vLLM (batched inference for RL rollouts)
+- lm-evaluation-harness (benchmark evaluation framework)
 - Ollama (deployment/serving)
 - torch.compile available on WSL2/Linux (NOT native Windows)
 - FA2 only (FA3 requires Hopper sm_90, not available on sm_120)

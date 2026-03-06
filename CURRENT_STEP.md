@@ -1,14 +1,36 @@
 # Current Step: Pre-Pipeline Setup -- Sovereign Qwen 3.5 9B
 
-**Status: NOT STARTED**
+**Status: IN PROGRESS**
 
 **Previous: Strategic pivot from CogCore-1B to Sovereign Qwen 3.5 9B post-training**
 
 ## Why This Step
 
-Before any training begins, we need a working environment with verified tooling, baseline benchmarks, and a confirmed QLoRA training loop. Every subsequent phase depends on this foundation.
+Before any training begins, we need baseline benchmarks on the stock model, a working eval harness, and verified tooling. Every subsequent phase compares against these baseline numbers.
 
 ## Sub-tasks
+
+### Model Download + Inference
+- [x] Download Qwen 3.5 9B GGUF (at `C:\Users\djord\.lmstudio\models\lmstudio-community\Qwen3.5-9B-GGUF`)
+- [x] Verify inference speed (75-85 t/s in LM Studio, meets 80+ t/s target)
+- [ ] Download HF weights for training (full precision, needed for QLoRA)
+
+### Evaluation Setup
+- [ ] Install lm-evaluation-harness (`pip install "lm_eval[hf,vllm]"`)
+- [ ] Configure LM Studio OpenAI-compatible API (already at localhost:1234)
+- [ ] Run Full Eval (Sovereign 10) baseline -- **THE MAIN TASK**
+  - [ ] GPQA Diamond (stock target: 81.7)
+  - [ ] SuperGPQA (stock target: 58.2)
+  - [ ] MMLU-Pro (stock target: 82.5)
+  - [ ] AIME 2025 (~40-55 est.)
+  - [ ] LiveCodeBench v6 (stock target: 65.6)
+  - [ ] BFCL-V4 (stock target: 66.1)
+  - [ ] TAU2-Bench (stock target: 79.1)
+  - [ ] RULER (establish baseline at 4K/16K/64K/128K)
+  - [ ] IFEval (stock target: 91.5)
+  - [ ] LongBench v2 (stock target: 55.2)
+- [ ] Record 20 forgetting canary problems (5 knowledge, 5 math, 5 code, 5 instruction following)
+- [ ] Create `results/baseline/` directory for scores
 
 ### Environment Setup
 - [ ] Install Unsloth (latest, with Qwen 3.5 support)
@@ -16,24 +38,8 @@ Before any training begins, we need a working environment with verified tooling,
 - [ ] Install TRL (latest, GRPOTrainer)
 - [ ] Build llama.cpp from source (`-DCMAKE_CUDA_ARCHITECTURES=120`)
 - [ ] Install Ollama (latest)
-- [ ] Verify torch.compile works on WSL2/Linux (10-30% speedup via Triton)
+- [ ] Verify torch.compile works on WSL2/Linux
 - [ ] Setup vLLM for local inference
-
-### Model Download
-- [ ] Download Qwen 3.5 9B from HuggingFace (full precision for training)
-- [ ] Download Q4_K_M GGUF for inference testing
-
-### Baseline Benchmarking
-- [ ] MMLU-Pro (stock target: 82.5)
-- [ ] GPQA Diamond (stock target: 81.7)
-- [ ] HMMT Feb 25 (stock target: 83.2)
-- [ ] GSM8K
-- [ ] MATH-500
-- [ ] HumanEval
-- [ ] ARC-Challenge
-- [ ] BFCL-V4 (stock target: 66.1)
-- [ ] TAU2-Bench (stock target: 79.1)
-- [ ] IFEval (stock target: 91.5)
 
 ### QLoRA Test Run
 - [ ] Run small QLoRA training (100 examples, 5 minutes) -- verify no OOM, loss decreases
@@ -46,11 +52,11 @@ Before any training begins, we need a working environment with verified tooling,
 
 ## Acceptance Criteria
 
-1. Model loads successfully on RTX 5070 (NF4 quantized)
-2. QLoRA training works without OOM at seq_len=4096
-3. Baseline benchmarks recorded for all 10 suites
-4. Inference speed >= 80 t/s at Q4_K_M via llama.cpp
-5. Cloud rental account ready with verified access
+1. All 10 Sovereign benchmarks scored at deployment quant (Q4_K_M)
+2. Results saved in `results/baseline/`
+3. 20 forgetting canary problems established
+4. QLoRA training verified (no OOM at seq_len=4096)
+5. Cloud rental account ready
 6. torch.compile status confirmed (WSL2/Linux vs Windows)
 
 ## What Comes Next
