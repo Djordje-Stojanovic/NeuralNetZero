@@ -178,9 +178,14 @@ When running via Claude Code, background task output files are at:
 | IFEval | -- | -- | 91.5 | Not yet run |
 | AIME 2025 | -- | -- | ~40-55 est. | Not yet run |
 
-### 5. Full Evaluation Suite (40 benchmarks across 4 tiers)
+### 5. Evaluation Suite (21 free benchmarks in 3 phases)
 
-ALL baselines must be established before training begins. See CURRENT_STEP.md for full tier list and status.
+- **Phase 1** (lm-eval cluster, ~8-12 hrs): IFEval, AIME 2025, MMLU-Pro, SimpleBench, SimpleQA, IFBench, RULER, LongBench v2
+- **Phase 2** (custom scripts, ~6-10 hrs): SuperGPQA, LiveCodeBench v6, BFCL-V4, FinanceArena, SciCode, HLE, OTIS Mock AIME
+- **Phase 3** (Docker/WSL2): TAU2-Bench, Terminal-Bench 2.0, StockBench, SWE-bench Pro, ARC-AGI-2
+- **Skipped** (gated/paid/platform-only): FrontierMath, GDPval-AA, METR, APEX-Agents, all 10 Vals AI, MCPMark
+- **Sampling**: Most use greedy (temp=0, single run). AIME/LiveCodeBench/OTIS use temp=0.7 + majority vote (k=16-32).
+- See CURRENT_STEP.md for full list, repos, expected scores, and status.
 
 ### 6. Important notes
 

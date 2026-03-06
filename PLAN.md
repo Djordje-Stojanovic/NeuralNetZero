@@ -524,24 +524,41 @@ Dataset curation (215-330 hours) runs in parallel throughout.
 
 ## 7. Expected Outcomes
 
-### 7.1 Benchmark Targets -- The Sovereign 10
+### 7.1 Benchmark Targets -- 22 Free Benchmarks
 
-Primary benchmark suite. All 10 run before and after every major phase.
+Primary benchmark suite. Run before and after every major phase.
 
-| # | Benchmark | Measures | Stock 9B | Target | Equivalent |
+#### Baselines (Q4_K_M, generative CoT)
+
+| # | Benchmark | Measures | Stock FP16 | Q4_K_M Baseline | Target |
 |---|---|---|---|---|---|
-| 1 | **GPQA Diamond** | Scientific reasoning (PhD-level, 198 Qs) | 81.7 | 85-90 | 30-50B |
-| 2 | **SuperGPQA** | Broad graduate reasoning (285 disciplines) | 58.2 | 65-72 | 25-40B |
-| 3 | **MMLU-Pro** | Knowledge + reasoning (10-option, graduate) | 82.5 | 82-86 | 15-20B |
-| 4 | **AIME 2025** | Competition math (novel, post-training-data) | ~40-55 est. | 55-70 | 30-50B |
-| 5 | **LiveCodeBench v6** | Practical coding (continuous refresh, exec-verified) | 65.6 | 72-80 | 20-30B |
-| 6 | **BFCL-V4** | Tool use + function calling (multi-turn) | 66.1 | 80-90 | 25-35B |
-| 7 | **TAU2-Bench** | Multi-turn agentic reasoning (enterprise) | 79.1 | 85-92 | 30-50B |
-| 8 | **RULER** | Working memory + context degradation (4K-128K) | N/A | Establish baseline | -- |
-| 9 | **IFEval** | Instruction following + format adherence | 91.5 | 92-95 | 30B+ |
-| 10 | **LongBench v2** | Long-context reasoning (8K-2M) | 55.2 | 60-68 | 20-30B |
+| 1 | **GPQA Diamond** | PhD-level science | 81.7 | **52.0%** | 65-75 |
+| 2 | **IFEval** | Instruction following | 91.5 | -- | 80-90 |
+| 3 | **AIME 2025** | Competition math | ~40-55 est. | -- | 40-55 |
+| 4 | **MMLU-Pro** | Academic reasoning | 82.5 | -- | 55-65 |
+| 5 | **SimpleBench** | Common-sense reasoning | N/A | -- | 45-60 |
+| 6 | **SimpleQA Verified** | Factual accuracy | N/A | -- | 35-45 |
+| 7 | **IFBench** | Instruction following v2 | N/A | -- | 60+ |
+| 8 | **RULER** | Working memory / context | N/A | -- | 60-80 |
+| 9 | **LongBench v2** | Long-context reasoning | 55.2 | -- | 45-55 |
+| 10 | **SuperGPQA** | Graduate reasoning | 58.2 | -- | 40-50 |
+| 11 | **LiveCodeBench v6** | Practical coding | 65.6 | -- | 30-45 |
+| 12 | **BFCL-V4** | Tool use / function calling | 66.1 | -- | 45-60 |
+| 13 | **FinanceArena** | Professional finance | N/A | -- | 30-45 |
+| 14 | **SciCode** | Research coding | N/A | -- | <10 |
+| 15 | **HLE** | Broad expert knowledge | N/A | -- | <15 |
+| 16 | **OTIS Mock AIME** | Hard competition math | N/A | -- | 15-30 |
+| 17 | **TAU2-Bench** | Multi-turn agentic | 79.1 | -- | <20 |
+| 18 | **Terminal-Bench 2.0** | Agentic terminal work | N/A | -- | <10 |
+| 19 | **StockBench** | Agentic trading | N/A | -- | marginal |
+| 20 | **SWE-bench Pro** | Multi-file real-world code | N/A | -- | <10 |
+| 21 | **ARC-AGI-2** | Fluid intelligence | N/A | -- | <10 |
+| 22 | **FACTS Benchmark** | Factual grounding | N/A | -- | <40 |
 
-**Dead benchmarks (do NOT use for differentiation):** GSM8K (~96-99%, trivial), MMLU original (~92%+, saturated/contaminated), HumanEval original (~92-95%, too simple). These prove nothing in 2026.
+Note: Stock FP16 scores use loglikelihood MCQ. Our Q4_K_M baselines use generative CoT (harder, more honest). Targets reflect post-training improvement on generative eval.
+
+**Dead benchmarks (do NOT use):** GSM8K, MMLU original, HumanEval original (saturated).
+**Skipped (gated/paid/platform-only):** FrontierMath, GDPval-AA, METR, APEX-Agents, all 10 Vals AI, MCPMark.
 
 **Custom domains (no standard benchmark):**
 
