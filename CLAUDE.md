@@ -143,7 +143,9 @@ PYTHONIOENCODING=utf-8 python -m lm_eval run \
   --log_samples
 ```
 
-### 3. Available tasks (generate_until, compatible with local-chat-completions)
+### 3. Sovereign 10 Benchmarks
+
+Group A (lm-eval-harness, verified working):
 
 | Task Name | Questions | Est. Time | Notes |
 |-----------|-----------|-----------|-------|
@@ -151,14 +153,19 @@ PYTHONIOENCODING=utf-8 python -m lm_eval run \
 | `ifeval` | 541 | ~2-4 hrs | Public |
 | `aime25` | 30 | ~1-2 hrs | Public. Use `max_gen_toks=8192` |
 
+Group B (separate repos, need installation per benchmark):
+- MMLU-Pro, SuperGPQA, LiveCodeBench v6, BFCL-V4, TAU2-Bench, RULER, LongBench v2
+- See CURRENT_STEP.md for repo URLs and details
+
+ALL 10 must be run before training begins.
+
 ### 4. Important notes
 
 - `PYTHONIOENCODING=utf-8` required on Windows (cp1252 can't print Unicode arrows)
 - `--apply_chat_template` required for `local-chat-completions` model
-- Only `generate_until` tasks work (NOT `multiple_choice`/`loglikelihood`)
-- Use CoT/generative variants of benchmarks (e.g., `gpqa_diamond_cot_zeroshot` not `gpqa_diamond_zeroshot`)
-- MMLU-Pro default uses loglikelihood -- need generative variant or different backend (deferred)
-- Results saved to `results/baseline/Qwen3.5-9B-Q4_K_M.gguf/`
+- Only `generate_until` tasks work with `local-chat-completions` (NOT `multiple_choice`/`loglikelihood`)
+- Use CoT/generative variants (e.g., `gpqa_diamond_cot_zeroshot` not `gpqa_diamond_zeroshot`)
+- Results saved to `results/baseline/`
 
 ## Dataset Format
 
