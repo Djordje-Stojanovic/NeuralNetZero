@@ -6,7 +6,7 @@ Hardware: RTX 5070, 12GB GDDR7 VRAM, Blackwell sm_120.
 ## Document Hierarchy
 
 1. `CLAUDE.md` -- This file. Project identity, conventions, current state.
-2. `PLAN.md` -- Long-term roadmap. Architecture spec, data strategy, all phases. (CR3 merged in)
+2. `PLAN.md` -- Long-term roadmap. Architecture spec, data strategy, all phases. (CR3+CR4+CR5 merged in)
 3. `CURRENT_STEP.md` -- Active step details, sub-tasks, acceptance criteria. **Always update after finishing a task** (check off completed sub-tasks, update status, advance to next step if done).
 4. `LLM_Training_Pipeline_Research_Report.md` -- Reference research (read-only).
 
@@ -15,9 +15,10 @@ If documents contradict each other, lower-numbered docs win.
 ## Current State
 
 - 1M param dense model DONE (v1, char-level tokenizer, ~997K params)
-- Phase 1 (BPE Tokenizer) DONE: 8192 vocab, 5.0x compression
-- Next milestone: CogCore-500M (see PLAN.md)
-- Current step: Phase 2 -- Data Pipeline (see CURRENT_STEP.md)
+- Phase 1a (BPE Tokenizer) DONE: 8192 vocab, 5.0x compression
+- Phase 1b: Retrain tokenizer to 128K vocab (NOT STARTED, blocks Phase 2)
+- Next milestone: CogCore-1B (see PLAN.md)
+- Current step: Phase 1b -- Tokenizer Retrain (see CURRENT_STEP.md)
 
 ## The Algorithm (decision sequence for every change)
 
@@ -53,17 +54,19 @@ Context: 512 tokens
 Total: ~997K parameters
 ```
 
-## Architecture -- Target CogCore-500M
+## Architecture -- Target CogCore-1B
 
 ```
-32L (26 DiffTrans + 6 Mamba2), d=896, 14 heads, d_head=64
-DiffTrans + MLA (d_latent=224), QK-Norm, nGPT unit norms
-MoE SwiGLU: 8 experts top-2, expert_hidden=448, shared=224
-SkipV1 (layer-1 V reuse, alpha init=0), no weight tying, no biases
-BPE 8192, context 2048, RoPE theta=10000 + YaRN/NTK
-~490M params total, ~350M active at inference
-Training: 80B tokens (~16 days on RTX 5070)
-Post-training: Dr. GRPO (stripped DAPO), cold-start mandatory, SLERP merge
+CogCore-1B v5 -- Interleaved Hybrid Dense (Mamba-3 + periodic GQA)
+32L (26 SSMBlock + 6 HybridBlock), d=1280, GQA 20Q/4KV, d_head=64
+Mamba-3 MIMO in all 32 layers, GQA in 6 hybrid blocks only
+Gated addition merge (SSM + attention), Dense SwiGLU (hidden=3392)
+Vocab 128000, embed projection 640->1280, context 4096
+nGPT unit norms, QK-Norm, RoPE, logit softcap=15
+~1.03B params total, all active (100% utilization)
+Training: 80B tokens (~50-70 days on RTX 5070, FA2 only)
+Post-training: Cold-start -> Distillation -> Dr. GRPO -> Tool SFT -> SLERP merge
+Target: 7-10B dense equivalent on STEM reasoning
 ```
 
 ## Project Structure

@@ -1,49 +1,49 @@
-# Current Step: Phase 2 -- Data Pipeline
+# Current Step: Phase 1b -- Retrain Tokenizer to 128K Vocab
 
 **Status: NOT STARTED**
 
-**Previous: Phase 1 (BPE Tokenizer) -- COMPLETE** (8192 vocab, 5.0x compression, all tests pass)
+**Previous: Phase 1a (BPE Tokenizer) -- COMPLETE** (8192 vocab, 5.0x compression, all tests pass)
 
-## Why This Phase
+## Why This Step
 
-The model is only as good as its data. Phase 2 builds the infrastructure to collect, filter, and pack 80B tokens of high-quality STEM training data. CR3 data changes (C1-C5) are integrated here.
+CR5 mandates vocab=128000 (2026 frontier minimum is 65K). The tokenizer is the foundation -- all downstream data processing, model architecture, and embeddings depend on it. This blocks Phase 2.
 
 ## Sub-tasks
 
-### Real Data Collection
-- [ ] Download AutoMathText V2 (`OpenSQZ/AutoMathText-V2`), sample top quality-score documents (CR3-C2)
-- [ ] Set up DeepSeekMath-style CC mining pipeline with fastText classifier (CR3-C1)
-  - [ ] Round 1: OpenWebMath positives vs random CC negatives
-  - [ ] Round 2: domain seed refinement
-  - [ ] Round 3: hard negatives + MD5 dedup + benchmark decontamination
-- [ ] Download Proof-Pile-2, AlgebraicStack, MathCode-Pile, OpenWebMath, Big-Math, MathPile
-- [ ] Quality filtering + global dedup across all sources
+### Config Updates
+- [ ] Update `config.py`: vocab_size = 128000
+- [ ] Update `train_tokenizer.py`: vocab_size = 128000
 
-### Synthetic Data Generation
-- [ ] Build generation scripts for 10 synthetic data types
-- [ ] Magpie-style self-synthesis for cold-start CoT traces (CR3-C5)
-- [ ] PRM verification pipeline for all synthetic examples (CR3-C3)
-  - [ ] Integrate math-shepherd-mistral-7b-prm or equivalent
-  - [ ] Verify every reasoning step, reject if any step < threshold
+### Corpus Expansion
+- [ ] Significantly expand corpus (128K merges need much more data -- target 50-100MB corpus)
+- [ ] Include multilingual data: Serbian Cyrillic text, German text with umlauts/ß
+- [ ] Include code samples (Python, C++, JavaScript keywords and operators)
+- [ ] Include STEM notation (LaTeX, chemical formulas, mathematical symbols)
 
-### Data Pipeline Infrastructure
-- [ ] ClimbMix semantic clustering (20-25 clusters, 50M proxy for optimal weights)
-- [ ] Document packer with complete problem-solution pair guarantee (CR3-C4)
-  - [ ] Never split problem/derivation/proof across sequence boundaries
-  - [ ] Non-reasoning docs can split normally
-- [ ] MATES dynamic selection setup (BERT-base proxy, influence scores every 500 steps)
-- [ ] RHO-1 reference model training for token-level weighting
+### Training
+- [ ] Run `prepare_corpus.py` (expanded)
+- [ ] Run `train_tokenizer.py`
+
+### Verification
+- [ ] Verify: vocab=128000, compression >= 15x bytes, digits split, roundtrip clean
+- [ ] Verify STEM tokens: \frac, \partial, \int, \sum -> 1 token each
+- [ ] Verify trilingual coverage: Serbian Cyrillic, German umlauts/ß -> single tokens
+- [ ] Verify code tokens: common keywords, operators -> single tokens
+
+### Architecture Prep
+- [ ] Implement embedding projection layer (640->1280)
 
 ## Acceptance Criteria
 
-1. Real data sources downloaded and deduplicated
-2. fastText CC mining classifier trained, first expansion run complete
-3. Synthetic generation produces all 10 types with PRM filtering
-4. ClimbMix clusters computed, optimal mixture weights found
-5. Document packer verified: no problem-solution splits across boundaries
-6. Total corpus size on track for 80B tokens
-7. Data loading pipeline feeds batches to training loop
+1. Tokenizer trained with vocab=128000
+2. Compression ratio >= 15x bytes
+3. Digits still split individually
+4. Roundtrip encoding/decoding is clean (no data loss)
+5. Key STEM tokens (\frac, \partial, \int, \sum) are 1 token each
+6. Serbian Cyrillic and German umlauts/ß are single tokens
+7. Common code keywords/operators are single tokens
+8. All existing tests pass with new tokenizer
 
 ## What Comes Next
 
-Phase 3: Architecture -- implement CogCore-500M model (15 architecture changes in order, QK-Norm first, Hyperconnections last).
+Phase 2: Data Pipeline -- implement CLIMB-style clustering on FineWeb-Edu, source code/math/science data, generate synthetic reasoning traces, validate domain ratios.
