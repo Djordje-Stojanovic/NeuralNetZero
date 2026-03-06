@@ -1,6 +1,6 @@
 # Current Step: Run All Free Baseline Benchmarks
 
-**Status: IN PROGRESS -- GPQA Diamond done (1/22), 21 remaining**
+**Status: IN PROGRESS -- GPQA Diamond + IFEval done (2/22), 20 remaining**
 
 **Previous: Setup llama-server + lm-eval-harness (DONE)**
 
@@ -21,6 +21,7 @@ Every training phase compares against these baseline numbers. Without baselines,
 | # | Benchmark | Score | Metric | Date |
 |---|-----------|-------|--------|------|
 | 1 | GPQA Diamond | **52.0%** | flexible-extract (generative CoT) | 2026-03-06 |
+| 2 | IFEval | **25.9%** | prompt_level_strict_acc (generative) | 2026-03-06 |
 
 ## Remaining: 21 Free Benchmarks in 3 Phases
 
@@ -41,7 +42,7 @@ All run with same llama-server + lm-eval setup. No new installation needed. Wind
 
 *AIME: Official uses sampling + majority vote (temp=0.7, k=16-32). Run greedy first for baseline, then optionally re-run with sampling.
 
-- [ ] IFEval
+- [x] IFEval -- 25.9% (reasoning-in-content issue, see ifeval_analysis.json)
 - [ ] AIME 2025
 - [ ] MMLU-Pro
 - [ ] SimpleBench

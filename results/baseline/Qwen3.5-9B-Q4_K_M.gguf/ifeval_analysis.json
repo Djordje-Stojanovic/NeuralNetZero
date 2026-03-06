@@ -1,0 +1,232 @@
+{
+  "benchmark": "ifeval",
+  "model": "Qwen3.5-9B-Q4_K_M.gguf",
+  "date": "2026-03-06",
+  "total_prompts": 541,
+  "scores": {
+    "prompt_level_strict_acc": 0.2588,
+    "prompt_level_loose_acc": 0.2662,
+    "inst_level_strict_acc": 0.4041,
+    "inst_level_loose_acc": 0.4101
+  },
+  "prompt_level": {
+    "strict_pass": 140,
+    "strict_fail": 401,
+    "loose_pass": 144,
+    "loose_fail": 397
+  },
+  "per_instruction_type": {
+    "punctuation:no_comma": {
+      "total": 66,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "combination:repeat_prompt": {
+      "total": 41,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "change_case:english_lowercase": {
+      "total": 39,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "detectable_format:number_bullet_lists": {
+      "total": 31,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "change_case:english_capital": {
+      "total": 25,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "startend:quotation": {
+      "total": 41,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "detectable_format:json_format": {
+      "total": 17,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "startend:end_checker": {
+      "total": 26,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 2,
+      "loose_rate": 0.0769
+    },
+    "keywords:forbidden_words": {
+      "total": 49,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 1,
+      "loose_rate": 0.0204
+    },
+    "length_constraints:nth_paragraph_first_word": {
+      "total": 12,
+      "strict_pass": 0,
+      "strict_rate": 0.0,
+      "loose_pass": 0,
+      "loose_rate": 0.0
+    },
+    "length_constraints:number_paragraphs": {
+      "total": 27,
+      "strict_pass": 3,
+      "strict_rate": 0.1111,
+      "loose_pass": 3,
+      "loose_rate": 0.1111
+    },
+    "language:response_language": {
+      "total": 31,
+      "strict_pass": 6,
+      "strict_rate": 0.1935,
+      "loose_pass": 8,
+      "loose_rate": 0.2581
+    },
+    "combination:two_responses": {
+      "total": 24,
+      "strict_pass": 5,
+      "strict_rate": 0.2083,
+      "loose_pass": 5,
+      "loose_rate": 0.2083
+    },
+    "length_constraints:number_sentences": {
+      "total": 52,
+      "strict_pass": 24,
+      "strict_rate": 0.4615,
+      "loose_pass": 24,
+      "loose_rate": 0.4615
+    },
+    "length_constraints:number_words": {
+      "total": 52,
+      "strict_pass": 29,
+      "strict_rate": 0.5577,
+      "loose_pass": 29,
+      "loose_rate": 0.5577
+    },
+    "keywords:letter_frequency": {
+      "total": 33,
+      "strict_pass": 22,
+      "strict_rate": 0.6667,
+      "loose_pass": 22,
+      "loose_rate": 0.6667
+    },
+    "change_case:capital_word_frequency": {
+      "total": 25,
+      "strict_pass": 18,
+      "strict_rate": 0.72,
+      "loose_pass": 18,
+      "loose_rate": 0.72
+    },
+    "keywords:frequency": {
+      "total": 42,
+      "strict_pass": 31,
+      "strict_rate": 0.7381,
+      "loose_pass": 31,
+      "loose_rate": 0.7381
+    },
+    "detectable_format:multiple_sections": {
+      "total": 14,
+      "strict_pass": 13,
+      "strict_rate": 0.9286,
+      "loose_pass": 13,
+      "loose_rate": 0.9286
+    },
+    "detectable_content:number_placeholders": {
+      "total": 27,
+      "strict_pass": 26,
+      "strict_rate": 0.963,
+      "loose_pass": 26,
+      "loose_rate": 0.963
+    },
+    "detectable_format:number_highlighted_sections": {
+      "total": 48,
+      "strict_pass": 48,
+      "strict_rate": 1.0,
+      "loose_pass": 48,
+      "loose_rate": 1.0
+    },
+    "detectable_format:title": {
+      "total": 37,
+      "strict_pass": 37,
+      "strict_rate": 1.0,
+      "loose_pass": 37,
+      "loose_rate": 1.0
+    },
+    "keywords:existence": {
+      "total": 39,
+      "strict_pass": 39,
+      "strict_rate": 1.0,
+      "loose_pass": 39,
+      "loose_rate": 1.0
+    },
+    "detectable_content:postscript": {
+      "total": 26,
+      "strict_pass": 26,
+      "strict_rate": 1.0,
+      "loose_pass": 26,
+      "loose_rate": 1.0
+    },
+    "detectable_format:constrained_response": {
+      "total": 10,
+      "strict_pass": 10,
+      "strict_rate": 1.0,
+      "loose_pass": 10,
+      "loose_rate": 1.0
+    }
+  },
+  "response_stats": {
+    "min_chars": 969,
+    "max_chars": 6786,
+    "median_chars": 4927,
+    "mean_chars": 4823,
+    "thinking_preamble_count": 537,
+    "truncated_responses": 393
+  },
+  "root_cause_analysis": {
+    "primary_issue": "Model outputs verbose reasoning preamble (\"Thinking Process: ...\") as plaintext in 540/541 responses. IFEval evaluates the ENTIRE response including this preamble, causing systematic failures on formatting constraints.",
+    "affected_instruction_types": [
+      "punctuation:no_comma (0% -- reasoning text always contains commas)",
+      "change_case:english_lowercase (0% -- reasoning uses normal capitalization)",
+      "change_case:english_capital (0% -- reasoning mixed case)",
+      "startend:quotation (0% -- response starts with \"Thinking Process:\" not a quote)",
+      "startend:end_checker (0% -- responses often truncated before end phrase)",
+      "keywords:forbidden_words (0% -- reasoning uses forbidden words)",
+      "combination:repeat_prompt (0% -- reasoning preamble breaks prompt repetition)",
+      "detectable_format:json_format (0% -- response is not valid JSON)",
+      "detectable_format:number_bullet_lists (0% -- reasoning format differs)"
+    ],
+    "unaffected_instruction_types": [
+      "keywords:existence (100% -- keywords appear in reasoning or answer)",
+      "detectable_format:title (100% -- markdown titles present)",
+      "detectable_format:number_highlighted_sections (100%)",
+      "detectable_content:postscript (100%)",
+      "detectable_content:number_placeholders (96.3%)"
+    ],
+    "secondary_issue": "max_gen_toks=1280 (task default) limits response to ~1280 tokens. With reasoning consuming most of this budget, actual answer content is often truncated (394/541 responses don't end with sentence-ending punctuation).",
+    "comparison_to_stock": "Stock FP16 score of 91.5% likely uses loglikelihood MCQ format or has reasoning tokens properly separated. Our generative eval with reasoning-in-content creates an unfair comparison.",
+    "potential_mitigations": [
+      "Use --reasoning-format deepseek to strip <think> tags into separate field (but model outputs \"Thinking Process:\" as plaintext, not <think> tags)",
+      "Add /no_think to system prompt to suppress reasoning",
+      "Post-process responses to strip reasoning preamble before evaluation",
+      "Increase max_gen_toks to give more room for actual answer after reasoning"
+    ]
+  }
+}

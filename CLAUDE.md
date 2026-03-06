@@ -175,7 +175,7 @@ When running via Claude Code, background task output files are at:
 | Benchmark | Score | Metric | Stock FP16 | Notes |
 |-----------|-------|--------|------------|-------|
 | GPQA Diamond | **52.0%** | flexible-extract | 81.7 | Zero-shot CoT generative. 103/198 correct, 91 wrong, 4 extraction failures. Gap vs stock likely due to generative eval vs loglikelihood MCQ. |
-| IFEval | -- | -- | 91.5 | Not yet run |
+| IFEval | **25.9%** | prompt_level_strict | 91.5 | 140/541 pass. Model outputs "Thinking Process:" preamble in 540/541 responses; IFEval checks entire response, failing format constraints (no-comma 0%, lowercase 0%, forbidden-words 0%). Reasoning-in-content artifact. |
 | AIME 2025 | -- | -- | ~40-55 est. | Not yet run |
 
 ### 5. Evaluation Suite (21 free benchmarks in 3 phases)
