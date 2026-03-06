@@ -1,0 +1,369 @@
+dna
+rna
+atp
+cell
+gene
+protein
+mitosis
+enzyme
+cells are the basic units of all living organisms
+dna carries the genetic instructions for life
+proteins are made from chains of amino acids
+mitochondria produce energy for the cell
+photosynthesis converts sunlight into chemical energy
+evolution occurs through natural selection
+enzymes catalyze biochemical reactions in cells
+the cell membrane controls what enters and exits the cell
+oxygen is produced as a byproduct of photosynthesis in plants
+the nucleus contains the genetic material of a eukaryotic cell
+ribosomes are the cellular structures responsible for assembling proteins from amino acids following messenger rna instructions
+homeostasis is the ability of an organism to maintain stable internal conditions despite changes in the external environment
+dna replication is the process by which a cell copies its entire genome before dividing ensuring each daughter cell receives a complete set of genetic instructions
+transcription copies a gene from dna into messenger rna and translation reads the messenger rna to build a protein from amino acids at the ribosome
+natural selection acts on variation within a population and organisms with traits better suited to their environment are more likely to survive and reproduce passing those traits to offspring
+cellular respiration breaks down glucose in the presence of oxygen to produce atp carbon dioxide and water providing energy for all cellular processes
+the krebs cycle occurs in the mitochondrial matrix and generates electron carriers that fuel oxidative phosphorylation to produce the majority of atp in aerobic organisms
+meiosis is a type of cell division that produces four genetically unique haploid cells from one diploid cell and is essential for sexual reproduction and genetic diversity
+the central dogma of molecular biology describes the flow of genetic information from dna to rna to protein and this directional flow underlies all gene expression in living organisms
+ecosystems consist of communities of organisms interacting with their physical environment and energy flows through trophic levels from producers to consumers to decomposers
+mutations are changes in the dna sequence that can be caused by errors in replication or environmental factors and they provide the raw material for evolution by introducing genetic variation
+the immune system defends the body against pathogens using innate responses like inflammation and adaptive responses like antibody production by specialized white blood cells
+the human genome contains approximately three billion base pairs of dna organized into twenty three pairs of chromosomes and encodes roughly twenty thousand protein coding genes along with vast regions of regulatory and noncoding sequences that control when and where genes are expressed
+crispr cas9 is a gene editing technology derived from bacterial immune systems that allows scientists to precisely cut and modify dna sequences and it has revolutionized genetics by making targeted modifications faster cheaper and more accurate than any previous method
+epigenetics studies heritable changes in gene expression that do not involve alterations to the dna sequence itself but instead involve chemical modifications such as dna methylation and histone modification that can turn genes on or off in response to environmental signals
+the endosymbiotic theory proposes that mitochondria and chloroplasts were once free living bacteria that were engulfed by ancestral eukaryotic cells and over time became permanent organelles and this is supported by the fact that both have their own dna and double membranes
+signal transduction pathways allow cells to receive process and respond to signals from their environment through cascades of molecular interactions involving receptors kinases and second messengers that ultimately alter gene expression or cellular behavior
+the hardy weinberg equilibrium describes the conditions under which allele frequencies in a population remain constant across generations and deviations from equilibrium indicate that evolutionary forces such as selection drift mutation or migration are acting
+stem cells are undifferentiated cells capable of self renewal and differentiation into specialized cell types and they play crucial roles in development tissue repair and hold enormous potential for regenerative medicine
+the carbon cycle describes how carbon moves between the atmosphere biosphere oceans and geosphere through processes including photosynthesis respiration decomposition and combustion of fossil fuels and human activities have significantly altered this cycle by releasing stored carbon
+neurotransmitters are chemical messengers released at synapses that transmit signals between neurons and they include molecules like dopamine serotonin and acetylcholine which regulate mood movement memory and many other functions
+the lac operon in bacteria is a classic example of gene regulation where the presence of lactose induces transcription of genes needed to metabolize it while glucose represses the operon demonstrating how cells efficiently control gene expression in response to their environment
+chloroplasts contain chlorophyll which absorbs light energy and uses it to drive the light reactions and calvin cycle of photosynthesis
+the nervous system transmits electrical signals through neurons allowing rapid communication between the brain and the rest of the body
+osmosis is the movement of water across a semipermeable membrane from a region of low solute concentration to high solute concentration
+genetic drift is a random change in allele frequency that has a stronger effect in small populations and can lead to loss of genetic variation
+the nitrogen cycle involves the conversion of atmospheric nitrogen into forms usable by living organisms through fixation nitrification and denitrification
+antibiotics target specific bacterial structures or processes such as cell wall synthesis or protein translation without harming human cells
+hormones are chemical signals produced by endocrine glands that travel through the bloodstream to regulate growth metabolism and reproduction
+viruses are not considered living organisms because they cannot reproduce independently and must hijack host cell machinery to replicate their genetic material
+the double helix structure of dna was discovered by watson and crick and consists of two complementary strands held together by hydrogen bonds between base pairs
+biodiversity refers to the variety of life at all levels from genes to species to ecosystems and greater biodiversity generally increases ecosystem resilience
+h2o
+nacl
+co2
+ch4
+nh3
+c6h12o6
+hcl
+o2
+atoms are the basic units of matter
+the periodic table organizes elements
+electrons orbit the atomic nucleus
+covalent bonds share electron pairs
+ionic bonds transfer electrons between atoms
+water is a polar molecule due to its bent shape
+acids donate protons and bases accept protons
+ph measures the concentration of hydrogen ions in a solution
+oxidation is the loss of electrons and reduction is the gain of electrons in a chemical reaction
+catalysts speed up chemical reactions without being consumed in the process
+chemical equilibrium occurs when the rate of the forward reaction equals the rate of the reverse reaction
+exothermic reactions release heat energy while endothermic reactions absorb heat energy from the surroundings
+the mole is a unit representing approximately six point zero two times ten to the twenty third particles of a substance
+electronegativity increases across a period and decreases down a group in the periodic table
+the ideal gas law relates pressure volume temperature and amount of gas through the equation pv equals nrt
+le chateliers principle states that a system at equilibrium will shift to counteract any change imposed upon it
+stoichiometry uses balanced equations to calculate the quantities of reactants and products in chemical reactions
+metallic bonds involve a sea of delocalized electrons shared among positively charged metal ions in a lattice structure
+entropy is a measure of the disorder or randomness in a system and tends to increase in spontaneous processes
+the electron configuration of an atom determines its chemical properties and its position in the periodic table
+hydrogen bonding is a strong intermolecular force that occurs between hydrogen and highly electronegative atoms like oxygen nitrogen and fluorine
+in an electrochemical cell chemical energy is converted to electrical energy through spontaneous redox reactions at the anode and cathode
+organic chemistry studies carbon containing compounds and their reactions including alkanes alkenes alkynes alcohols and carboxylic acids which form the basis of biological molecules and synthetic materials
+the first law of thermodynamics applied to chemistry states that the total energy change in a chemical reaction equals the heat exchanged plus the work done and energy is neither created nor destroyed only transformed
+molecular orbital theory explains chemical bonding by combining atomic orbitals into molecular orbitals that can be bonding antibonding or nonbonding and the filling of these orbitals determines bond order and magnetic properties
+rate laws describe how the concentration of reactants affects the speed of a reaction and the rate constant depends on temperature according to the arrhenius equation which includes an exponential term with activation energy
+the gibbs free energy equation combines enthalpy and entropy to predict whether a reaction is spontaneous at a given temperature and a negative gibbs free energy change means the reaction proceeds forward without external energy input
+nuclear chemistry involves reactions that change the composition of atomic nuclei including alpha decay beta decay and gamma emission and these processes release energy according to the mass energy equivalence principle
+transition metals have partially filled d orbitals that allow them to form colored compounds exhibit variable oxidation states and act as catalysts in many industrial and biological processes
+polymers are large molecules made by linking many small monomer units together through addition or condensation reactions and their properties depend on chain length branching and the functional groups present
+buffer solutions resist changes in ph when small amounts of acid or base are added and they consist of a weak acid and its conjugate base or a weak base and its conjugate acid working together to neutralize added ions
+colligative properties such as boiling point elevation freezing point depression and osmotic pressure depend on the number of dissolved solute particles rather than their chemical identity
+crystal field theory explains the colors and magnetic properties of transition metal complexes by describing how d orbital energies split when surrounded by ligands in different geometric arrangements
+the haber process synthesizes ammonia from nitrogen and hydrogen gases using high pressure high temperature and an iron catalyst and is essential for producing fertilizers that feed billions of people
+isomers are molecules with the same molecular formula but different structural arrangements and they can have vastly different physical and chemical properties despite identical composition
+the solubility product constant describes the equilibrium between a solid ionic compound and its dissolved ions in a saturated solution
+valence shell electron pair repulsion theory predicts molecular geometry by minimizing repulsion between electron pairs around a central atom
+daltons atomic theory proposed that all matter is made of indivisible atoms that combine in whole number ratios to form compounds
+the aufbau principle states that electrons fill atomic orbitals starting from the lowest energy level moving to higher levels sequentially
+avogadros law states that equal volumes of gases at the same temperature and pressure contain equal numbers of molecules
+electrolysis uses electrical energy to drive nonspontaneous chemical reactions separating compounds into their constituent elements at the electrodes
+a+b=b+a
+pi=3.14
+a^2+b^2=c^2
+0!=1
+e=2.718
+i^2=-1
+sum=n(n+1)/2
+ax^2+bx+c=0
+addition is commutative meaning a plus b equals b plus a
+multiplication distributes over addition
+the pythagorean theorem relates the sides of a right triangle
+prime numbers are divisible only by one and themselves
+zero is the additive identity element
+one is the multiplicative identity element
+negative times negative equals positive
+the area of a circle is pi times the radius squared
+a function maps each input to exactly one output
+the slope of a line is the change in y divided by the change in x
+logarithm is the inverse operation of exponentiation
+absolute value gives the distance of a number from zero on the number line
+the derivative of a function gives the instantaneous rate of change at any point and is defined as the limit of the difference quotient as the interval approaches zero
+integration is the reverse of differentiation and computes the area under a curve between two bounds using the fundamental theorem of calculus
+the quadratic formula gives the solutions of ax squared plus bx plus c equals zero as x equals negative b plus or minus the square root of b squared minus four ac all divided by two a
+a matrix is a rectangular array of numbers and matrix multiplication combines rows of the first matrix with columns of the second to produce a new matrix
+the binomial theorem expands the power of a sum into a series of terms involving binomial coefficients
+euler's formula states that e to the power of i times theta equals cosine theta plus i times sine theta connecting exponential and trigonometric functions in the complex plane
+probability measures the likelihood of an event occurring and ranges from zero meaning impossible to one meaning certain
+the chain rule in calculus states that the derivative of a composite function equals the derivative of the outer function times the derivative of the inner function
+a vector space is a collection of vectors that can be added together and multiplied by scalars while satisfying specific axioms of closure associativity and distributivity
+the central limit theorem states that the distribution of sample means approaches a normal distribution as the sample size increases regardless of the shape of the population distribution
+the fundamental theorem of algebra states that every non constant polynomial equation with complex coefficients has at least one complex root and a polynomial of degree n has exactly n roots counted with multiplicity
+a group in abstract algebra is a set equipped with an operation that satisfies closure associativity has an identity element and every element has an inverse and groups capture the essence of symmetry in mathematics
+the riemann integral partitions an interval into subintervals and approximates the area under a curve by summing rectangles and as the partition becomes finer the sum converges to the exact area if the function is integrable
+eigenvalues and eigenvectors of a matrix describe the directions along which a linear transformation acts by scaling without changing direction and they are fundamental to understanding dynamical systems quantum mechanics and principal component analysis
+taylors theorem states that any sufficiently smooth function can be approximated near a point by a polynomial whose coefficients are determined by the derivatives of the function at that point and the accuracy improves as more terms are included
+the divergence theorem relates the flux of a vector field through a closed surface to the divergence of the field inside the volume and it connects surface integrals to volume integrals generalizing the fundamental theorem of calculus to three dimensions
+a topological space is a set together with a collection of open sets satisfying specific axioms and topology studies properties that are preserved under continuous deformations like stretching and bending but not tearing or gluing
+the fourier transform decomposes a function into its constituent frequencies and is fundamental to signal processing physics and engineering allowing analysis of periodic and non periodic signals in the frequency domain
+cantors diagonal argument proves that the set of real numbers is uncountably infinite meaning there is no way to list all real numbers in a sequence even though the natural numbers and rationals are both countably infinite
+differential equations describe how quantities change over time and they model physical phenomena from planetary orbits to population growth with solutions that can be exact or approximated numerically
+the law of large numbers states that as the number of trials increases the sample average converges to the expected value
+modular arithmetic studies remainders after division and forms the basis of number theory and modern cryptography
+sine and cosine are periodic functions that describe oscillation and relate angles to ratios of sides in right triangles
+the fibonacci sequence starts with zero and one and each subsequent number is the sum of the two preceding numbers
+mathematical induction proves statements for all natural numbers by showing the base case and that each case implies the next
+the determinant of a matrix is a scalar value that indicates whether the matrix is invertible and describes how the transformation scales areas or volumes
+bayes theorem describes how to update the probability of a hypothesis given new evidence using prior probability and the likelihood of the observed data
+complex numbers extend the real numbers by including the imaginary unit i which satisfies i squared equals negative one
+the triangle inequality states that the sum of the lengths of any two sides of a triangle must be greater than the length of the remaining side
+a continuous function has no breaks jumps or holes in its graph and small changes in input produce small changes in output
+f=ma
+e=mc2
+pv=nrt
+v=ir
+f=kx
+s=vt
+p=mv
+w=fd
+force equals mass times acceleration
+energy cannot be created or destroyed
+every action has an equal reaction
+entropy of a system always increases
+light speed is constant for all observers
+an object at rest stays at rest
+pressure times volume equals nrt
+energy equals mass times c squared
+work is the transfer of energy from one system to another through force
+power is the rate at which work is done or energy is transferred over time
+momentum is conserved in all collisions when no external forces act on the system
+kinetic energy equals one half mass times velocity squared
+gravity pulls all objects toward each other with a force proportional to their masses
+the total momentum of a closed system is always conserved in all collisions
+heat flows from hot objects to cold objects and never the reverse direction
+electric current flows through a conductor proportional to the voltage applied
+a wave carries energy through space without transporting matter along with it
+the position and momentum of a particle cannot both be known with precision
+time passes slower for objects moving at speeds close to the speed of light
+the total energy of an isolated system remains constant through all changes
+coulombs law states that the electric force between two charges is proportional to the product of the charges and inversely proportional to the square of the distance between them
+an electromagnetic wave consists of oscillating electric and magnetic fields perpendicular to each other and to the direction of propagation
+newtons first law says that an object in motion will stay in motion at constant velocity unless acted on by an external net force
+the second law of thermodynamics states that the entropy of an isolated system will tend to increase over time toward a maximum
+maxwells equations describe how electric and magnetic fields are generated and altered by each other and by charges and currents
+the photoelectric effect shows that light behaves as particles called photons each carrying energy proportional to its frequency
+general relativity describes gravity not as a force but as the curvature of spacetime caused by the presence of mass and energy
+quantum mechanics reveals that at the smallest scales particles exist in superposition of multiple states until they are measured
+conservation of angular momentum means a spinning object will keep spinning at the same rate unless a torque acts upon it from outside
+the strong nuclear force binds protons and neutrons together inside atomic nuclei overcoming the electric repulsion between protons
+the heisenberg uncertainty principle states that there is a fundamental limit to the precision with which certain pairs of physical properties such as position and momentum can be simultaneously known and this is not due to measurement error but is a property of nature itself
+einsteins special theory of relativity rests on two postulates first that the laws of physics are the same in all inertial reference frames and second that the speed of light in a vacuum is the same for all observers regardless of their motion or the motion of the source
+the principle of least action states that the path taken by a physical system between two states is the one for which the action integral is stationary and this single principle can be used to derive all of classical mechanics electromagnetism and even quantum field theory
+thermodynamic equilibrium is reached when a system has maximized its entropy and no further spontaneous changes can occur the system then has uniform temperature pressure and chemical potential throughout and all net flows of energy and matter have ceased completely
+the wave function in quantum mechanics contains all information about a quantum system and its square gives the probability of finding a particle at a given location but the wave function itself is not directly observable only its statistical predictions can be tested
+electromagnetic waves are oscillating electric and magnetic fields that propagate through space at the speed of light and they require no medium to travel through unlike sound waves they can cross the vacuum of space carrying energy from stars to planets across vast distances
+nuclear fission occurs when a heavy atomic nucleus splits into two lighter nuclei releasing enormous energy because the binding energy per nucleon is higher for the products than for the original heavy nucleus and this energy difference is what powers nuclear reactors and atomic bombs
+the doppler effect describes how the observed frequency of a wave changes when the source and observer are moving relative to each other approaching objects have higher frequency and receding objects have lower frequency and this applies to both sound waves and light waves in space
+in quantum field theory particles are excitations of underlying quantum fields that permeate all of space and every type of particle has its own field electrons arise from the electron field photons from the electromagnetic field and the interactions between fields give rise to forces
+the equivalence principle states that the effects of gravity are locally indistinguishable from the effects of acceleration in a small enough region of spacetime a person in a closed elevator cannot tell whether they are standing on earth or being accelerated through space at one g
+potential energy is stored energy due to position or configuration such as a ball held at height or a compressed spring and it can be converted to kinetic energy
+the speed of sound in air is approximately 343 meters per second and depends on temperature pressure and the medium through which the wave travels
+H2O water molecule consists of two hydrogen atoms and one oxygen atom
+NaCl sodium chloride is an ionic compound formed by Na+ and Cl- ions
+CH3COOH acetic acid is a weak organic acid with pKa of 4.76
+C6H12O6 glucose is a monosaccharide with the molecular formula C6H12O6
+H2SO4 sulfuric acid is a strong diprotic acid
+CO2 carbon dioxide is a linear molecule with two C=O double bonds
+NH3 ammonia has a trigonal pyramidal molecular geometry
+CaCO3 calcium carbonate decomposes into CaO and CO2 when heated
+Fe2O3 iron(III) oxide is commonly known as rust
+CH4 methane is the simplest alkane hydrocarbon
+C2H5OH ethanol is a primary alcohol with hydroxyl group
+HCl hydrochloric acid fully dissociates in aqueous solution
+NaOH sodium hydroxide is a strong base
+KMnO4 potassium permanganate is a strong oxidizing agent
+ATP adenosine triphosphate stores cellular energy
+DNA deoxyribonucleic acid carries genetic information
+RNA ribonucleic acid translates genetic code into proteins
+F=ma force equals mass times acceleration Newton's second law
+E=mc^2 energy equals mass times the speed of light squared
+PV=nRT the ideal gas law relates pressure volume and temperature
+F=kx Hooke's law states that force is proportional to displacement
+v=u+at velocity equals initial velocity plus acceleration times time
+s=ut+0.5at^2 displacement with constant acceleration
+KE=0.5mv^2 kinetic energy equals half mass times velocity squared
+PE=mgh gravitational potential energy equals mass times g times height
+W=Fd work equals force times displacement
+P=W/t power equals work divided by time
+F=Gm1m2/r^2 Newton's law of universal gravitation
+E=hf energy of a photon equals Planck's constant times frequency
+lambda=h/p de Broglie wavelength relates wavelength to momentum
+dv/dt represents the rate of change of velocity with respect to time
+dp/dt=F the time derivative of momentum equals force
+nabla x E = -dB/dt Faraday's law of electromagnetic induction
+nabla . B = 0 Gauss's law for magnetism no magnetic monopoles
+S=kB*ln(W) Boltzmann entropy formula
+F=-dU/dr force is the negative gradient of potential energy
+tau=r x F torque is the cross product of position and force
+L=r x p angular momentum is the cross product of position and momentum
+I=integral(r^2 dm) moment of inertia
+Schrodinger equation: i*hbar*d/dt|psi>=H|psi>
+Heisenberg uncertainty: delta_x * delta_p >= hbar/2
+Maxwell-Boltzmann distribution: f(v) = 4*pi*(m/2*pi*kT)^(3/2)*v^2*exp(-mv^2/2kT)
+the integral of f(x)dx from a to b equals F(b) minus F(a)
+the derivative of x^n is n*x^(n-1) by the power rule
+eigenvalue lambda satisfies Av = lambda*v for eigenvector v
+the determinant of a 2x2 matrix [[a,b],[c,d]] is ad-bc
+matrix multiplication is associative but not commutative
+the trace of a matrix equals the sum of its eigenvalues
+gradient descent updates w = w - alpha * dL/dw
+the chain rule states d/dx[f(g(x))] = f'(g(x)) * g'(x)
+Taylor series: f(x) = sum_{n=0}^{inf} f^(n)(a)/n! * (x-a)^n
+Fourier transform: F(w) = integral f(t)*e^(-iwt) dt
+Euler's identity: e^(i*pi) + 1 = 0
+the quadratic formula: x = (-b +/- sqrt(b^2 - 4ac)) / (2a)
+Bayes theorem: P(A|B) = P(B|A)*P(A)/P(B)
+the binomial coefficient C(n,k) = n! / (k! * (n-k)!)
+the Cauchy-Schwarz inequality: |<u,v>|^2 <= <u,u>*<v,v>
+a vector space requires closure under addition and scalar multiplication
+the rank-nullity theorem: rank(A) + nullity(A) = n
+convergence of a series requires lim_{n->inf} a_n = 0
+the Jacobian matrix contains all first-order partial derivatives
+Lagrange multipliers: nabla f = lambda * nabla g at constrained extrema
+the Laplacian operator: nabla^2 = d^2/dx^2 + d^2/dy^2 + d^2/dz^2
+divergence theorem: integral_V (nabla . F) dV = integral_S F . dA
+Stokes theorem: integral_S (nabla x F) . dA = integral_C F . dr
+SI base units: kilogram kg, meter m, second s, ampere A, kelvin K, mole mol, candela cd
+derived units: newton N = kg*m/s^2, joule J = N*m, watt W = J/s
+pressure: pascal Pa = N/m^2, atmosphere atm = 101325 Pa
+electric: volt V = J/C, ohm Omega = V/A, farad F = C/V
+magnetic: tesla T = kg/(A*s^2), henry H = V*s/A
+concentration: mol/L = M (molar), parts per million ppm
+energy: electronvolt eV = 1.602e-19 J, calorie cal = 4.184 J
+frequency: hertz Hz = 1/s, angular frequency omega = 2*pi*f rad/s
+speed of light c = 299792458 m/s = 3.00e8 m/s
+Planck constant h = 6.626e-34 J*s, hbar = h/(2*pi)
+Boltzmann constant kB = 1.381e-23 J/K
+Avogadro number NA = 6.022e23 mol^-1
+gravitational constant G = 6.674e-11 N*m^2/kg^2
+elementary charge e = 1.602e-19 C
+permittivity of free space epsilon_0 = 8.854e-12 F/m
+permeability of free space mu_0 = 4*pi*1e-7 H/m
+alpha decay: nucleus emits an alpha particle (helium-4 nucleus)
+beta coefficient measures systematic risk in finance
+gamma rays have the shortest wavelength in the electromagnetic spectrum
+delta represents a small change: delta_x approaches zero in limits
+epsilon-delta definition of limits: for all epsilon>0 exists delta>0
+zeta function: zeta(s) = sum_{n=1}^{inf} 1/n^s for Re(s)>1
+eta efficiency = useful output / total input
+theta is the standard variable for angles in polar coordinates
+iota is used for the imaginary unit in some notations
+kappa curvature measures how fast a curve changes direction
+lambda wavelength in optics, eigenvalue in linear algebra
+mu is used for the coefficient of friction and micro prefix (1e-6)
+nu frequency in hertz, kinematic viscosity in fluid mechanics
+xi is a common variable for dimensionless coordinates
+pi = 3.14159265358979... the ratio of circumference to diameter
+rho density = mass/volume, charge density in electrostatics
+sigma standard deviation, stress in mechanics, Stefan-Boltzmann constant
+tau torque, time constant in RC circuits tau = RC
+phi electric potential, golden ratio phi = (1+sqrt(5))/2 = 1.618...
+chi-squared test statistic for goodness of fit
+psi wave function in quantum mechanics
+omega angular velocity = 2*pi*f rad/s
+pi = 3.14159265358979323846...
+e = 2.71828182845904523536...
+sqrt(2) = 1.41421356237...
+the fine structure constant alpha = 1/137.036 = 7.297e-3
+Avogadro's number NA = 6.02214076e23 per mole
+Planck length = 1.616255e-35 meters
+age of the universe = 13.8 billion years = 4.35e17 seconds
+mass of electron = 9.109e-31 kg = 0.511 MeV/c^2
+mass of proton = 1.673e-27 kg = 938.3 MeV/c^2
+Bohr radius a0 = 5.292e-11 m = 0.529 angstroms
+room temperature = 293.15 K = 20 C = 68 F
+standard pressure = 101325 Pa = 1 atm = 760 mmHg
+water density = 997 kg/m^3 at 25 C
+speed of sound in air = 343 m/s at 20 C
+1 light-year = 9.461e15 meters
+1 astronomical unit AU = 1.496e11 meters
+absolute zero = 0 K = -273.15 C
+12345 67890 individual digits should each be separate tokens
+0 1 2 3 4 5 6 7 8 9 are the ten decimal digits
+binary: 1010 = 10, hexadecimal: 0xFF = 255, octal: 0o77 = 63
+\frac{dy}{dx} represents the derivative of y with respect to x
+\sum_{i=1}^{n} a_i is the sum of a_i from i=1 to n
+\int_{a}^{b} f(x) dx is the definite integral from a to b
+\prod_{i=1}^{n} a_i is the product of a_i from i=1 to n
+\lim_{x \to 0} \frac{\sin x}{x} = 1
+\nabla f = (\partial f/\partial x, \partial f/\partial y, \partial f/\partial z)
+\vec{F} = q(\vec{E} + \vec{v} \times \vec{B}) is the Lorentz force
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+\sqrt{a^2 + b^2} is the hypotenuse length by Pythagorean theorem
+\hat{H}\psi = E\psi is the time-independent Schrodinger equation
+\mathbb{R}^n represents n-dimensional real vector space
+\forall x \in \mathbb{R}, \exists n \in \mathbb{N} : n > x (Archimedean property)
+photosynthesis converts CO2 and H2O into glucose C6H12O6 and O2 using light energy
+cellular respiration: C6H12O6 + 6O2 -> 6CO2 + 6H2O + 38 ATP
+DNA replication is semiconservative: each strand serves as template
+transcription: DNA -> mRNA in the nucleus by RNA polymerase
+translation: mRNA -> protein at ribosomes using tRNA anticodons
+mitosis produces two identical diploid daughter cells
+meiosis produces four haploid gametes with genetic recombination
+natural selection acts on phenotypic variation in populations
+Hardy-Weinberg equilibrium: p^2 + 2pq + q^2 = 1 for allele frequencies
+enzyme kinetics: v = Vmax*[S]/(Km + [S]) Michaelis-Menten equation
+the Krebs cycle (citric acid cycle) generates NADH, FADH2, and GTP
+osmosis is the diffusion of water across a semipermeable membrane
+electrochemical gradient drives ATP synthesis in chemiosmosis
+action potential propagation: resting (-70mV) -> depolarization -> repolarization
+electronegativity increases across a period and decreases down a group
+pH = -log10[H+] measures hydrogen ion concentration
+oxidation is loss of electrons, reduction is gain of electrons (OIL RIG)
+equilibrium constant Keq = [products]/[reactants] at equilibrium
+Gibbs free energy: delta_G = delta_H - T*delta_S determines spontaneity
+Hess's law: total enthalpy change is independent of pathway
+Le Chatelier's principle: system shifts to counteract applied stress
+electron configuration of Fe: [Ar] 3d6 4s2, Fe2+: [Ar] 3d6
+hybridization: sp3 (tetrahedral 109.5), sp2 (trigonal 120), sp (linear 180)
+rate law: rate = k[A]^m[B]^n where m,n are reaction orders
+Nernst equation: E = E0 - (RT/nF)*ln(Q) relates potential to concentrations
+colligative properties: boiling point elevation delta_Tb = Kb*m*i
+bond energy: C-H 413 kJ/mol, C=C 614 kJ/mol, C-C 348 kJ/mol
+Deriving kinetic energy from work-energy theorem: W = integral F dx = integral ma dx = integral m(dv/dt)dx = integral mv dv = 0.5mv^2 - 0.5mv0^2. Therefore KE = 0.5mv^2.
+Deriving the ideal gas law from kinetic theory: pressure P = (1/3)*rho*v_rms^2 where rho = Nm/V. Average kinetic energy = (3/2)kT per molecule. So PV = NkT = nRT where R = NA*k.
+The fundamental theorem of calculus connects differentiation and integration: if F(x) = integral_a^x f(t)dt then F'(x) = f(x). This means integration is the inverse of differentiation.
+Conservation of energy in a closed system: dE/dt = 0 implies E_initial = E_final. For a falling object: mgh_1 + 0.5mv_1^2 = mgh_2 + 0.5mv_2^2. Energy transforms between kinetic and potential forms but total is conserved.
+Deriving the wave equation: consider a string with tension T and linear density mu. Newton's second law on a small element gives: T * d^2y/dx^2 = mu * d^2y/dt^2, so v = sqrt(T/mu) is the wave speed.
+Entropy and the second law of thermodynamics: for any spontaneous process, delta_S_universe >= 0. Boltzmann's statistical interpretation: S = kB * ln(W) where W is the number of microstates. A system evolves toward the macrostate with the most microstates.
+Deriving the Schwarzschild radius: set escape velocity equal to speed of light: 0.5mv^2 = GMm/r. With v=c: r_s = 2GM/c^2. For Earth: r_s = 2*6.674e-11*5.972e24/(3e8)^2 = 8.87 mm.
+Dimensional analysis of the period of a pendulum: T depends on length L, mass m, and gravity g. [T] = [L]^a [m]^b [g]^c -> s = m^a * kg^b * (m/s^2)^c. Solving: a=1/2, b=0, c=-1/2, so T = k*sqrt(L/g). The mass does not affect the period.

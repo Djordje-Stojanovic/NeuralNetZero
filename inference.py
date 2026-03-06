@@ -4,7 +4,7 @@ import sys
 import torch
 
 from model import GPT
-from tokenizer import CharTokenizer
+from tokenizer import CharTokenizer, BPETokenizer
 
 
 def generate(model, tokenizer, prompt: str = "", max_len: int = 200,
@@ -43,18 +43,23 @@ def load_model(ckpt_path: str = "checkpoint.pt"):
     ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     mc = ckpt["model_config"]
 
-    # Rebuild tokenizer from saved tokens
-    tokenizer = CharTokenizer.__new__(CharTokenizer)
-    tokenizer.tokens = ckpt["tokenizer_tokens"]
-    tokenizer.token_to_id = {t: i for i, t in enumerate(tokenizer.tokens)}
-    tokenizer.id_to_token = {i: t for i, t in enumerate(tokenizer.tokens)}
-    tokenizer.pad_token = "<|pad|>"
-    tokenizer.bos_token = "<|bos|>"
-    tokenizer.eos_token = "<|eos|>"
-    tokenizer.pad_id = tokenizer.token_to_id[tokenizer.pad_token]
-    tokenizer.bos_id = tokenizer.token_to_id[tokenizer.bos_token]
-    tokenizer.eos_id = tokenizer.token_to_id[tokenizer.eos_token]
-    tokenizer.special_tokens = [tokenizer.pad_token, tokenizer.bos_token, tokenizer.eos_token]
+    # Rebuild tokenizer based on type
+    tok_type = ckpt.get("tokenizer_type", "char")
+    if tok_type == "bpe":
+        tok_path = ckpt.get("tokenizer_path", "tokenizer/stem_bpe.json")
+        tokenizer = BPETokenizer(tok_path)
+    else:
+        tokenizer = CharTokenizer.__new__(CharTokenizer)
+        tokenizer.tokens = ckpt["tokenizer_tokens"]
+        tokenizer.token_to_id = {t: i for i, t in enumerate(tokenizer.tokens)}
+        tokenizer.id_to_token = {i: t for i, t in enumerate(tokenizer.tokens)}
+        tokenizer.pad_token = "<|pad|>"
+        tokenizer.bos_token = "<|bos|>"
+        tokenizer.eos_token = "<|eos|>"
+        tokenizer.pad_id = tokenizer.token_to_id[tokenizer.pad_token]
+        tokenizer.bos_id = tokenizer.token_to_id[tokenizer.bos_token]
+        tokenizer.eos_id = tokenizer.token_to_id[tokenizer.eos_token]
+        tokenizer.special_tokens = [tokenizer.pad_token, tokenizer.bos_token, tokenizer.eos_token]
 
     model = GPT(mc)
     model.load_state_dict(ckpt["model_state_dict"])

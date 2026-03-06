@@ -1,4 +1,4 @@
-"""Model and training hyperparameters for NeuralNetZero 1M param LLM."""
+"""Model and training hyperparameters for NeuralNetZero."""
 
 from dataclasses import dataclass
 
@@ -13,6 +13,21 @@ class ModelConfig:
     block_size: int = 512
     vocab_size: int = -1      # set from tokenizer
     dropout: float = 0.0
+    tokenizer_type: str = "char"    # "char" or "bpe"
+    tokenizer_path: str = ""        # path to BPE JSON (ignored for char)
+
+
+@dataclass
+class CogCore500MConfig(ModelConfig):
+    n_layer: int = 32
+    d_model: int = 896
+    n_head: int = 14
+    d_head: int = 64
+    ffn_inner: int = 448
+    block_size: int = 2048
+    vocab_size: int = 8192
+    tokenizer_type: str = "bpe"
+    tokenizer_path: str = "tokenizer/stem_bpe.json"
 
 
 @dataclass

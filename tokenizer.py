@@ -1,4 +1,4 @@
-"""Character-level tokenizer for NeuralNetZero."""
+"""Tokenizers for NeuralNetZero: character-level and BPE."""
 
 
 class CharTokenizer:
@@ -34,3 +34,24 @@ class CharTokenizer:
             if tok not in self.special_tokens:
                 out.append(tok)
         return "".join(out)
+
+
+class BPETokenizer:
+    """BPE tokenizer wrapping HuggingFace tokenizers library."""
+
+    def __init__(self, path: str):
+        from tokenizers import Tokenizer
+        self._tokenizer = Tokenizer.from_file(path)
+        self.pad_id = self._tokenizer.token_to_id("<|pad|>")
+        self.bos_id = self._tokenizer.token_to_id("<|bos|>")
+        self.eos_id = self._tokenizer.token_to_id("<|eos|>")
+
+    @property
+    def vocab_size(self) -> int:
+        return self._tokenizer.get_vocab_size()
+
+    def encode(self, text: str) -> list[int]:
+        return self._tokenizer.encode(text).ids
+
+    def decode(self, ids: list[int]) -> str:
+        return self._tokenizer.decode(ids, skip_special_tokens=True)

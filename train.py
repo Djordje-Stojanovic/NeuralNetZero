@@ -10,7 +10,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 from config import ModelConfig, TrainConfig
-from tokenizer import CharTokenizer
+from tokenizer import CharTokenizer, BPETokenizer
 from model import GPT
 from optim import build_optimizer
 
@@ -139,7 +139,13 @@ def main():
     texts.sort(key=len)
 
     # Build tokenizer
-    tokenizer = CharTokenizer(texts)
+    mc = ModelConfig()
+    if mc.tokenizer_type == "bpe" and mc.tokenizer_path:
+        tokenizer = BPETokenizer(mc.tokenizer_path)
+        print(f"  Tokenizer: BPE from {mc.tokenizer_path}")
+    else:
+        tokenizer = CharTokenizer(texts)
+        print(f"  Tokenizer: character-level")
     print(f"  Vocab size: {tokenizer.vocab_size} tokens")
 
     # Tokenize all data with EOS separators
@@ -156,7 +162,7 @@ def main():
     val_ids = all_ids[split:]
 
     # Model config
-    mc = ModelConfig(vocab_size=tokenizer.vocab_size)
+    mc.vocab_size = tokenizer.vocab_size
     print(f"\n{'='*60}")
     print(f"MODEL ARCHITECTURE")
     print(f"{'='*60}")
@@ -336,13 +342,18 @@ def main():
 
     # Save checkpoint
     ckpt_path = "checkpoint.pt"
-    torch.save({
+    ckpt_data = {
         "model_state_dict": model._orig_mod.state_dict() if hasattr(model, "_orig_mod") else model.state_dict(),
         "model_config": mc,
-        "tokenizer_tokens": tokenizer.tokens,
+        "tokenizer_type": mc.tokenizer_type,
         "step": step,
         "train_loss": train_losses[-1],
-    }, ckpt_path)
+    }
+    if mc.tokenizer_type == "bpe":
+        ckpt_data["tokenizer_path"] = mc.tokenizer_path
+    else:
+        ckpt_data["tokenizer_tokens"] = tokenizer.tokens
+    torch.save(ckpt_data, ckpt_path)
     print(f"\n  Checkpoint saved to {ckpt_path}")
 
 
