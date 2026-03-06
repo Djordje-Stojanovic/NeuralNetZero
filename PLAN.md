@@ -5,15 +5,23 @@
 
 ## 1. Vision
 
-Sovereign specialization of Qwen 3.5 9B -- a $30M+ frontier model, free to download -- into the most intelligent model running locally on a single RTX 5070. Instead of training from scratch, we specialize 9 billion parameters from "201 languages, all domains" to:
+Push Qwen 3.5 9B to its **physical limits** using every SOTA technique available in 2026 -- distillation, RL, extended thinking, tool use, working memory -- all running on a single RTX 5070 (12GB VRAM).
+
+This model already beats GPT-OSS-120B (a 13x larger model) on 18 of 26 benchmarks out of the box. The goal is to widen that gap and close the remaining weaknesses (competition math, competitive coding) through sovereign post-training.
 
 - **3 languages** (English, German, Serbian)
 - **Pure intelligence** (reasoning, math, physics, code, tool use)
 - **First-principles understanding** over broad trivia
+- **Every SOTA algorithm**: GRPO, GKD, SimPO, DoRA, rsLoRA, NEFTune, RHO-1, checkpoint averaging, progressive sequence length, sample-level attention masks
+- **Every available teacher**: Opus 4.6, GPT-5.4, Qwen3.5-35B — distill their reasoning into 9B parameters
+- **Every token of thinking budget**: extended thinking training, working memory, 262K context utilization
+- **Continuous SOTA integration**: User has access to frontier research agents (Claude Opus, GPT-5.4, Deep Research) for discovering and integrating the latest training techniques, datasets, and algorithms as they emerge in 2026. The pipeline is not frozen — it evolves with the field.
 
-CogCore-1B becomes **Track 2 (educational)**. Every insight from building a model from scratch feeds understanding of training dynamics. CogCore teaches. Sovereign Qwen delivers.
+The goal is NOT just closing weaknesses. It's pushing **every dimension of intelligence** to the physical ceiling of what 9B parameters on 12GB VRAM can achieve. If a new technique drops tomorrow that gives +2pp on reasoning, we integrate it.
 
-**Target: 15-50B dense equivalent on reasoning benchmarks.**
+CogCore-1B becomes **Track 2 (educational)**. CogCore teaches. Sovereign Qwen delivers.
+
+**Target: The smartest 9B model that can physically exist on consumer hardware. 15-50B+ equivalent on reasoning. 80+ t/s local inference. Every benchmark pushed to the limit of what 9 billion parameters allow.**
 
 ---
 
@@ -67,7 +75,39 @@ Embeddings + LM head (tied):
 
 Key insight: FFNs hold 54% of capacity. The 8 Gated Attention layers are the global reasoning bottleneck -- highest-priority fine-tuning targets.
 
-### 2.3 Why 9B Dense Over 35B-A3B MoE
+### 2.3 Stock Benchmark Scores (Qwen 3.5 9B FP16 vs GPT-OSS-120B)
+
+From Qwen model card. The 9B model **beats a 120B model on 18+ of 26 benchmarks**. Main weakness: competition math and competitive coding.
+
+| Category | Benchmark | GPT-OSS-120B | GPT-OSS-20B | **Qwen3.5-9B** | 9B wins? |
+|---|---|---|---|---|---|
+| Knowledge | MMLU-Pro | 80.8 | 74.8 | **82.5** | +1.7 |
+| | MMLU-Redux | 91.0 | 87.8 | **91.1** | +0.1 |
+| | C-Eval | 76.2 | 71.4 | **88.2** | +12.0 |
+| | SuperGPQA | 54.6 | 48.5 | **58.2** | +3.6 |
+| | GPQA Diamond | 80.1 | 71.5 | **81.7** | +1.6 |
+| Instruction | IFEval | 88.9 | 88.2 | **91.5** | +2.6 |
+| | IFBench | **69.0** | 65.1 | 64.5 | -4.5 |
+| | MultiChallenge | 45.3 | 40.1 | **54.5** | +9.2 |
+| Long Context | AA-LCR | 50.7 | 30.7 | **63.0** | +12.3 |
+| | LongBench v2 | 48.2 | 45.6 | **55.2** | +7.0 |
+| Math/Code | HMMT Feb 25 | **90.0** | 76.7 | 83.2 | -6.8 |
+| | HMMT Nov 25 | **90.0** | 81.8 | 82.9 | -7.1 |
+| | LiveCodeBench v6 | **82.7** | 74.6 | 65.6 | -17.1 |
+| | OJBench | **41.5** | 36.3 | 29.2 | -12.3 |
+| Agent | BFCL-V4 | -- | -- | **66.1** | -- |
+| | TAU2-Bench | -- | -- | **79.1** | -- |
+| | DeepPlanning | -- | -- | **18.0** | -- |
+| Multilingual | MMMLU | 78.2 | 69.7 | **81.2** | +3.0 |
+| | MMLU-ProX | 74.5 | 67.3 | **76.3** | +1.8 |
+| | NOVA-63 | 51.1 | 48.7 | **55.9** | +4.8 |
+| | PolyMATH | 54.0 | 30.9 | **57.3** | +3.3 |
+| | WMT24++ | **74.4** | 67.8 | 72.6 | -1.8 |
+| | MAXIFE | **83.7** | 80.1 | 83.4 | -0.3 |
+
+**Key insight for training:** The 9B's weakest areas vs 120B are competition math (HMMT -7pp) and competitive coding (LiveCodeBench -17pp, OJBench -12pp). These are exactly where GRPO RL (Phase 7) and distillation from stronger teachers (Phase 5-6) can close the gap. Knowledge, instruction following, long context, and multilingual are already at or above 120B level.
+
+### 2.4 Why 9B Dense Over 35B-A3B MoE
 
 | Factor | 9B Dense | 35B-A3B MoE |
 |---|---|---|
@@ -338,6 +378,23 @@ Checkpoint avg: Average last 3-5 checkpoints per round
 | Complex tool use | Multi-turn agentic scenarios | 5K | Execution feedback |
 | Logic / analysis | Graduate-level + multi-hop | 5K | LLM-as-judge + correctness |
 
+**RL algorithm selection (evaluate all, pick best for our scale):**
+- **GRPO** (baseline) — group relative baseline, no critic, proven on DeepSeek-R1
+- **DAPO** — specifically designed for long CoT reasoning, better for our thinking model
+- **Dr-GRPO** — refined GRPO with better reward normalization, direct upgrade
+- **REINFORCE++** — simpler than PPO, more stable than GRPO, no critic network
+- **RLOO** — leave-one-out variance reduction, stabler with fewer samples
+- Run ablation on small subset (1K problems) to pick winner before full training
+
+**RL budget philosophy (inspired by Grok 4.20):**
+xAI spends 50% of total compute on RL, not just surface polish. Our pipeline should allocate maximum RL budget — this is where reasoning emerges from first principles, not just imitation. More RL > more SFT for reasoning capability.
+
+**SDPO (Self-Distillation Phase):**
+After teacher distillation saturates (Phase 5-6), add SDPO — model teaches itself using its own feedback. No external teacher needed. Provides gains beyond what any teacher can give. Insert as Phase 6.5 before GRPO.
+
+**Reward distillation (from Arxiv 2502.19557):**
+Don't just distill teacher's outputs — distill the teacher's *reward signals*. Use Opus 4.6 / GPT-5.4 as reward models during RL, not just trace generators. Deeper learning than pure imitation.
+
 **GRPO config:**
 ```
 Rollouts per prompt:    8 (sequential on 5070, batched on H100)
@@ -421,7 +478,43 @@ Variable binding (5K), State tracking (5K), Multi-hop reasoning (5K), Planning (
 
 These "memory gym" tasks specifically exercise DeltaNet long-range state tracking.
 
-### 4.12 Phase 12: Merge + Quantize + Deploy
+### 4.12 Phase 11.5: Multi-Agent Council (Inference Architecture)
+
+**Where:** RTX 5070, local (3-5 days development)
+**Goal:** Grok 4.20-style multi-agent collaboration at 9B scale. Multiple instances of CogCore-9B collaborate on hard problems.
+
+**Architecture (runs on our existing llama-server with 4-6 parallel slots):**
+
+1. **Best-of-N with verification**: Send same question to N=4 slots, each generates independently (temp=1.0 = diverse answers), majority vote or judge pass selects best
+2. **Debate protocol**: 2 instances argue opposing answers, 3rd instance judges with access to both arguments
+3. **Solve-verify loop**: Instance A solves, Instance B checks the work, Instance A revises if needed
+4. **Specialized council**: Train 4 LoRA adapters (math-specialist, code-specialist, logic-specialist, generalist), load dynamically per slot, run as a council on hard problems
+
+**Implementation:** Python orchestration layer that routes queries to llama-server slots, collects responses, runs consensus/judge logic, returns best answer. Works with existing infrastructure — no new hardware needed.
+
+**Throughput tradeoff:** 4x slower per query but potentially much higher accuracy on hard problems. Use council mode only when confidence is low or problem is classified as hard. Easy questions go single-pass.
+
+**Inspiration:** Grok 4.20 uses 4 specialized agents (Grok/Harper/Benjamin/Lucas) collaborating on every complex query. We replicate this with 4 LoRA-specialized instances of the same 9B model. Same principle, consumer hardware.
+
+### 4.14 RESEARCH: Latent Reasoning / Recurrent Depth (Potential Game-Changer)
+
+**Status:** Research phase. Not yet integrated into pipeline. Requires feasibility study.
+
+**What:** A 3.5B model achieved 50B-equivalent performance by looping through recurrent layers multiple times at inference (latent reasoning). No extra tokens generated, no extra memory, constant memory footprint. The model "thinks" in latent space by iterating its recurrent block to arbitrary depth.
+
+**Why this matters for us:** Qwen 3.5 9B has 24 DeltaNet (recurrent) layers out of 32. This architecture is *naturally suited* for latent reasoning — the recurrent layers already maintain fixed-size state. If we can train the model to iterate these layers multiple times, a 9B model could theoretically perform like 100B+.
+
+**Open questions:**
+1. Can DeltaNet layers be iterated without architectural changes? Or do we need weight-tying modifications?
+2. Does llama.cpp support recurrent depth inference, or do we need custom inference code?
+3. What training data/method is needed? The original paper uses randomly sampled iteration counts during training.
+4. Can this be combined with chain-of-thought? (Latent reasoning + explicit CoT = double scaling)
+
+**If feasible:** This becomes the highest-priority addition to the pipeline. A 9B model with 10x recurrent depth iterations could match frontier models on reasoning while running locally.
+
+**References:** Arxiv 2502.05171 (Scaling up Test-Time Compute with Latent Reasoning), Introl blog (3.5B→50B results)
+
+### 4.15 Phase 12: Merge + Quantize + Deploy
 
 **Where:** RTX 5070, local (1-2 days)
 

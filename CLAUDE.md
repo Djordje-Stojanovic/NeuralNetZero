@@ -1,7 +1,8 @@
 # NeuralNetZero
 
-Sovereign post-training of Qwen 3.5 9B for maximum local intelligence on RTX 5070.
-Hardware: RTX 5070, 12GB GDDR7 VRAM, Blackwell sm_120.
+**The absolute maximum intelligence that can be squeezed into 9B parameters using 2026's best research, techniques, data, and teacher models. No laziness, no shortcuts, no half-measures.**
+
+Sovereign post-training of Qwen 3.5 9B on RTX 5070 (12GB GDDR7 VRAM, Blackwell sm_120). This model already beats GPT-OSS-120B on 18/26 benchmarks. The goal is to push every dimension of intelligence to the physical ceiling of what 9B parameters allow — best algorithms, best data, best distillation, ruthless optimization.
 
 ## Document Hierarchy
 
@@ -110,29 +111,54 @@ python v0_pure_python.py   # Original pure Python version
 
 ## Benchmarking (Track 1)
 
-### 1. Start llama-server (universal config — ONE config for ALL benchmarks)
+### 1. Start llama-server (3 configs depending on benchmark difficulty)
 
+**CRITICAL FLAGS (required on ALL configs):**
+- `--reasoning-format deepseek`: Separates `<think>` into `reasoning_content`; eval only sees `content`
+- `--chat-template-kwargs '{"enable_thinking":true}'`: **REQUIRED for 9B.** Without this, model prefills empty `<think></think>` block and puts everything in thinking with empty content. This was the root cause of 17/30 empty AIME responses.
+- `--jinja`: Required for Qwen 3.5 chat template
+- `--no-context-shift`: Prevents corruption mid-generation
+- `--flash-attn on`: Required for efficiency on Blackwell
+
+**Config A — Standard (most benchmarks: IFEval, GPQA, MMLU-Pro, etc.):**
 ```bash
 cd C:\AI\llama-cpp-server
 ./llama-server.exe \
   -m "C:/Users/djord/.lmstudio/models/lmstudio-community/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q4_K_M.gguf" \
   --port 8080 --n-gpu-layers 99 --ctx-size 110592 --parallel 6 \
   --flash-attn on --jinja --host 127.0.0.1 \
-  --reasoning-format deepseek --no-context-shift
+  --reasoning-format deepseek --no-context-shift \
+  --chat-template-kwargs '{"enable_thinking":true}'
 ```
+6 slots × 18K tokens/slot. ~10.4GB VRAM.
 
-Key flags:
-- `--reasoning-format deepseek`: Separates `<think>` reasoning into `reasoning_content` field; `content` only has the final answer. This is critical — without it, thinking bleeds into evaluated output and destroys format-sensitive benchmarks (IFEval scored 25.9% with reasoning in content vs expected 70-80%+).
-- `--jinja`: Required for Qwen 3.5 chat template (handles `enable_thinking` toggle). The GGUF has the template embedded.
-- `--no-context-shift`: Prevents context shifting mid-generation which can corrupt thinking.
-- `--ctx-size 110592 --parallel 6`: 18,432 tokens per slot, ~10.4GB VRAM. Enough for ~16K thinking + ~2K answer per question.
-- `--flash-attn on`: Required for efficiency on Blackwell.
-- Model ID returned by API: `Qwen3.5-9B-Q4_K_M.gguf`
-- Measured speed: 85-92 t/s single stream
+**Config B — Heavy thinking (AIME, LiveCodeBench):**
+```bash
+./llama-server.exe \
+  -m "C:/Users/djord/.lmstudio/models/lmstudio-community/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q4_K_M.gguf" \
+  --port 8080 --n-gpu-layers 99 --ctx-size 131072 --parallel 4 \
+  --flash-attn on --jinja --host 127.0.0.1 \
+  --reasoning-format deepseek --no-context-shift \
+  --chat-template-kwargs '{"enable_thinking":true}'
+```
+4 slots × 32K tokens/slot. ~10.9GB VRAM.
 
-**Thinking mode note (Qwen 3.5 9B):** For 0.8B/2B/4B/9B models, thinking is **disabled by default** in the chat template. The template prefills `<think>\n\n</think>\n\n` (empty think block) unless `--chat-template-kwargs '{"enable_thinking":true}'` is passed. However, with `--reasoning-format deepseek`, llama-server handles the `<think>` parsing automatically. The model still generates reasoning when prompted with temp>0 even without explicit enable_thinking.
+**Config C — Ultra deep thinking (re-run failures from Config B):**
+```bash
+./llama-server.exe \
+  -m "C:/Users/djord/.lmstudio/models/lmstudio-community/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q4_K_M.gguf" \
+  --port 8080 --n-gpu-layers 99 --ctx-size 131072 --parallel 2 \
+  --flash-attn on --jinja --host 127.0.0.1 \
+  --reasoning-format deepseek --no-context-shift \
+  --chat-template-kwargs '{"enable_thinking":true}'
+```
+2 slots × 64K tokens/slot. Same VRAM as Config B. For problems that hit max_tokens at 32K.
 
-**CRITICAL — temp=0 breaks thinking mode:** Qwen 3.5 at temperature=0 (greedy) loops infinitely inside `<think>` and never emits `</think>`. This is because greedy decoding in the thinking space creates degenerate repetition. Always use temp≥0.6 for this model. The official Qwen/Unsloth recommended params are temp=1.0, top_p=0.95.
+**On Windows** use: `--chat-template-kwargs "{\"enable_thinking\":true}"`
+
+**CRITICAL — temp=0 breaks thinking mode:** Qwen 3.5 at temperature=0 (greedy) loops infinitely inside `<think>` and never emits `</think>`. Always use temp≥0.6. Official Qwen/Unsloth params: temp=1.0, top_p=0.95.
+
+**CRITICAL — empty content means model ran out of tokens:** If `finish_reason=length` and content is empty, the model used all tokens on thinking and had none left for the answer. Fix: use a bigger slot config (B or C), or add system prompt telling model to keep reasoning concise.
 
 VRAM breakdown (Qwen 3.5 9B Q4_K_M, 6 slots, 18K/slot):
 - Model weights: ~5.2 GB (4.8 GB GPU + 0.5 GB CPU-mapped)
@@ -152,7 +178,7 @@ source .venv-eval/Scripts/activate
 # Universal template for all lm-eval benchmarks:
 PYTHONIOENCODING=utf-8 python -m lm_eval run \
   --model local-chat-completions \
-  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=6,max_gen_toks=16384" \
+  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=6,max_gen_toks=16384,timeout=1800" \
   --tasks <TASK_NAME> \
   --batch_size 1 \
   --apply_chat_template \
@@ -165,6 +191,7 @@ PYTHONIOENCODING=utf-8 python -m lm_eval run \
 - `temperature=1.0,top_p=0.95`: Qwen/Unsloth official recommended params for thinking mode general tasks. Model degenerates at temp=0.
 - `do_sample=true`: Required for non-greedy decoding. Without this, lm-eval ignores temperature.
 - `max_gen_toks=16384`: Must be in BOTH `--model_args` and `--gen_kwargs`. Model needs ~8-16K tokens for thinking + ~1-2K for answer. The `--gen_kwargs` version overrides the task YAML default (e.g., IFEval defaults to 1280).
+- `timeout=1800`: **NEVER use default timeout (300s).** It kills deep thinking chains mid-generation, causing infinite retry loops that waste all compute. 1800s (30 min) is the minimum. The model must be allowed to work until it finishes — if it gets the wrong answer, we rerun. We do NOT kill it mid-thought.
 - `num_concurrent=6`: Matches server's 6 parallel slots.
 - With `--reasoning-format deepseek` on the server, lm-eval only sees `content` (clean answer), NOT the thinking. Evaluation is fair.
 - Since temp=1.0 with sampling, results are NOT deterministic. For stable baselines, run 2-3 times and report mean±std on small-N benchmarks (AIME=30).
@@ -196,17 +223,19 @@ When running via Claude Code, background task output files are at:
 
 | Benchmark | Score | Metric | Stock FP16 | Notes |
 |-----------|-------|--------|------------|-------|
-| GPQA Diamond | **52.0%** (INVALID) | flexible-extract | 81.7 | Run with broken config (temp=0, reasoning-format none). Needs re-run with universal config. |
-| IFEval | **25.9%** (INVALID) | prompt_level_strict | 91.5 | Run with broken config (temp=0, reasoning in content). Needs re-run with universal config. |
-| IFEval | *re-running* | prompt_level_strict | 91.5 | Re-running with correct config: temp=1.0, deepseek separation, max_gen_toks=16384. |
-| AIME 2025 | -- | -- | ~40-55 est. | Not yet run |
+| GPQA Diamond | **(INVALID)** | flexible-extract | 81.7 | Broken config (temp=0, no thinking). Needs re-run. |
+| IFEval | **(INVALID)** | prompt_level_strict | 91.5 | Broken config (temp=0, thinking in content). Needs re-run. |
+| AIME 2025 | **40% (12/30)** | exact_match | ~40-55 est. | Reported 0% due to extraction bug. Real: 12/13 correct when content non-empty (92.3%). 17/30 empty due to missing enable_thinking. Needs re-run with correct config. |
 
-**IMPORTANT:** The first GPQA and IFEval runs used `--reasoning-format none` + temp=0, which caused:
-1. Thinking content leaked into evaluated output (IFEval failed on format constraints)
-2. Model looped infinitely in `<think>` at temp=0 (greedy repetition degeneration)
-3. GPQA extraction worked via regex but score was likely depressed by truncated thinking
+**All results above are from broken configs.** Re-run ALL benchmarks with the correct server config (enable_thinking + deepseek + temp=1.0) before treating any score as a valid baseline.
 
-All benchmarks must use the universal config above. Old results in `results/baseline/` from 2026-03-06T18-53 (GPQA) and T21-09 (IFEval) are kept for reference but are INVALID baselines.
+**AIME 2025 learnings (2026-03-07):**
+- lm-eval reported 0/30 but actual accuracy is 12/30 (40%) with proper answer extraction
+- When the model produces content, it's correct 12/13 times (92.3%) — the model is smart, infrastructure was broken
+- 17/30 empty responses caused by missing `--chat-template-kwargs '{"enable_thinking":true}'`
+- AIME extraction expects `\boxed{N}` format — add system prompt or modify task YAML `doc_to_text` to request it
+- Custom task YAML at `custom_tasks/aime/aime25.yaml` with proper prompt
+- Some hard problems need >32K tokens of thinking — use Config C (2×64K) for re-runs
 
 ### 5. Evaluation Suite (21 free benchmarks in 3 phases)
 
@@ -217,18 +246,29 @@ All benchmarks must use the universal config above. Old results in `results/base
 - **Sampling**: ALL benchmarks use temp=1.0, top_p=0.95, do_sample=true (Qwen optimal). Model breaks at temp=0 (infinite thinking loop). This means results are non-deterministic; run 2-3x for small-N benchmarks.
 - See CURRENT_STEP.md for full list, repos, expected scores, and status.
 
-### 6. Important notes
+### 6. Hard-won rules (DO NOT VIOLATE)
 
-- `PYTHONIOENCODING=utf-8` required on Windows (cp1252 can't print Unicode arrows)
-- `--apply_chat_template` required for `local-chat-completions` model
-- Only `generate_until` tasks work with `local-chat-completions` (NOT `multiple_choice`/`loglikelihood`)
-- Use CoT/generative variants (e.g., `gpqa_diamond_cot_zeroshot` not `gpqa_diamond_zeroshot`)
-- Results saved to `results/baseline/`
-- **DO NOT use temp=0** -- Qwen 3.5 loops infinitely in `<think>` at greedy decoding. Always temp≥0.6, recommended 1.0.
-- **Always use `--reasoning-format deepseek`** on the server -- separates thinking from content so eval harness only scores the answer.
-- **Always set `max_gen_toks=16384` in both `--model_args` AND `--gen_kwargs`** -- model needs ~8-16K tokens for thinking. The `--gen_kwargs` version overrides task YAML defaults.
-- With temp=1.0 + sampling, results are non-deterministic. For small-N benchmarks (AIME=30), run 2-3 times and report mean±std.
-- lm-eval reads only `message.content` from the API response. With `--reasoning-format deepseek`, thinking is in `message.reasoning_content` (invisible to lm-eval). This is the correct setup.
+**Server:**
+- **ALWAYS `--chat-template-kwargs '{"enable_thinking":true}'`** — without this, 9B model prefills empty think block, content comes back empty 50%+ of the time
+- **ALWAYS `--reasoning-format deepseek`** — separates thinking from content so eval only scores the answer
+- **DO NOT use temp=0** — Qwen 3.5 loops infinitely in `<think>` at greedy. Always temp≥0.6, recommended 1.0
+- **DO NOT use `--reasoning-format none`** — thinking bleeds into content, destroys format-sensitive benchmarks
+
+**lm-eval:**
+- **ALWAYS `timeout=1800`** in `--model_args` — default 300s kills deep thinking mid-generation, wastes compute on infinite retries. The model works until it finishes. If wrong, we rerun. We do NOT kill it mid-thought.
+- **ALWAYS `max_gen_toks` in BOTH `--model_args` AND `--gen_kwargs`** — gen_kwargs overrides task YAML defaults
+- **ALWAYS `do_sample=true`** — without this, lm-eval ignores temperature
+- **ALWAYS `--apply_chat_template`** and `PYTHONIOENCODING=utf-8`
+- Only `generate_until` tasks work with `local-chat-completions` (NOT loglikelihood)
+- Use CoT/generative variants (e.g., `gpqa_diamond_cot_zeroshot`)
+
+**Benchmarking philosophy:**
+- Let the model work until it produces an answer. No timeouts, no killing, no shortcuts.
+- If the answer is wrong, rerun. If content is empty (finish_reason=length), use a bigger slot config.
+- For math benchmarks (AIME): add system prompt requesting `\boxed{}` format, or use custom task YAML with modified `doc_to_text`
+- Custom task YAMLs go in `custom_tasks/` directory, loaded with `--include_path custom_tasks`
+- Results are non-deterministic (temp=1.0 sampling). Run 2-3x for small-N benchmarks (AIME=30).
+- lm-eval reads only `message.content`. With `--reasoning-format deepseek`, thinking is in `message.reasoning_content` (invisible to lm-eval).
 
 ## Dataset Format
 

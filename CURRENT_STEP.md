@@ -1,6 +1,6 @@
 # Current Step: Run All Free Baseline Benchmarks
 
-**Status: IN PROGRESS -- Re-running IFEval with correct config (0/22 valid baselines)**
+**Status: IN PROGRESS -- Config validated, re-running all benchmarks (0/22 valid baselines)**
 
 **Previous: Setup llama-server + lm-eval-harness (DONE)**
 
@@ -18,33 +18,54 @@ Every training phase compares against these baseline numbers. Without baselines,
 
 ## Universal Benchmark Config (MUST use for ALL benchmarks)
 
-**Server (one config for everything):**
+**Server — Standard (6×18K, most benchmarks):**
 ```bash
 cd C:\AI\llama-cpp-server
 ./llama-server.exe \
   -m "C:/Users/djord/.lmstudio/models/lmstudio-community/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q4_K_M.gguf" \
   --port 8080 --n-gpu-layers 99 --ctx-size 110592 --parallel 6 \
   --flash-attn on --jinja --host 127.0.0.1 \
-  --reasoning-format deepseek --no-context-shift
+  --reasoning-format deepseek --no-context-shift \
+  --chat-template-kwargs '{"enable_thinking":true}'
 ```
 
-**lm-eval (one command template for everything):**
+**Server — Heavy (4×32K, AIME/LiveCodeBench):** `--ctx-size 131072 --parallel 4`
+**Server — Ultra (2×64K, re-run failures):** `--ctx-size 131072 --parallel 2`
+Same flags as above, only ctx-size and parallel change.
+
+**lm-eval — Standard config (most benchmarks):**
 ```bash
 cd C:\AI\NeuralNetZero && source .venv-eval/Scripts/activate
 PYTHONIOENCODING=utf-8 python -m lm_eval run \
   --model local-chat-completions \
-  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=6,max_gen_toks=16384" \
+  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=6,max_gen_toks=16384,timeout=1800" \
   --tasks <TASK_NAME> \
   --batch_size 1 --apply_chat_template \
   --gen_kwargs "temperature=1.0,top_p=0.95,do_sample=true,max_gen_toks=16384" \
   --output_path results/baseline/ --log_samples
 ```
 
+**lm-eval — Heavy thinking config (AIME, LiveCodeBench):**
+Restart server with `--parallel 4 --ctx-size 131072` (32K/slot), then:
+```bash
+PYTHONIOENCODING=utf-8 python -m lm_eval run \
+  --model local-chat-completions \
+  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=4,max_gen_toks=32768,timeout=1800" \
+  --tasks <TASK_NAME> \
+  --batch_size 1 --apply_chat_template \
+  --gen_kwargs "temperature=1.0,top_p=0.95,do_sample=true,max_gen_toks=32768" \
+  --output_path results/baseline/ --log_samples
+```
+
 **Why this config:**
+- `--chat-template-kwargs '{"enable_thinking":true}'`: **REQUIRED for 9B.** Without this, model prefills empty `<think></think>` and 50%+ of responses have empty content. This was the root cause of AIME 0% score.
 - `--reasoning-format deepseek`: Separates thinking into `reasoning_content`, eval harness only sees clean `content`
-- `temperature=1.0,top_p=0.95`: Qwen/Unsloth official optimal params. **Model breaks at temp=0** (infinite `<think>` loop, greedy repetition degeneration)
-- `max_gen_toks=16384` in BOTH `--model_args` AND `--gen_kwargs`: Model needs ~8-16K thinking tokens + ~1-2K answer. The gen_kwargs version overrides task YAML defaults.
+- `temperature=1.0,top_p=0.95`: Qwen/Unsloth official optimal params. **Model breaks at temp=0** (infinite `<think>` loop)
+- `max_gen_toks` in BOTH `--model_args` AND `--gen_kwargs`: gen_kwargs overrides task YAML defaults
+- `timeout=1800`: **NEVER use default (300s).** Let the model work until it finishes. If wrong, rerun. Never kill mid-thought.
 - `do_sample=true`: Required for non-greedy. Without it, lm-eval ignores temperature.
+- For math benchmarks: use custom task YAML with `doc_to_text` requesting `\boxed{}` format (see `custom_tasks/aime/`)
+- If content is empty with `finish_reason=length`: model ran out of tokens while thinking. Use bigger slot config.
 - Results are non-deterministic (temp=1.0 sampling). For small-N benchmarks, run 2-3x and report mean±std.
 
 ## Invalid Baselines (wrong config — kept for reference only)
@@ -58,9 +79,14 @@ These used `--reasoning-format none` + temp=0. Results in `results/baseline/` fr
 
 ## Valid Baselines
 
-| # | Benchmark | Score | Metric | Stock FP16 | Date |
-|---|-----------|-------|--------|------------|------|
-| | *IFEval re-running...* | | prompt_level_strict_acc | 91.5 | |
+None yet. All previous runs used broken configs. AIME 2025 ran with correct thinking params but missing `enable_thinking=true` — needs re-run.
+
+**AIME 2025 preliminary (needs re-run with enable_thinking):**
+- lm-eval reported: 0/30 (0%) — WRONG due to extraction + empty content
+- Real score with manual extraction: 12/30 (40%)
+- When model produces content: 12/13 correct (92.3%)
+- 17/30 empty content due to missing `--chat-template-kwargs '{"enable_thinking":true}'`
+- Results in `results/baseline/Qwen3.5-9B-Q4_K_M.gguf/samples_aime25_2026-03-06T23-50-06.435673.jsonl`
 
 ## Remaining: 22 Free Benchmarks in 3 Phases
 
@@ -82,9 +108,9 @@ All use the universal server + lm-eval config above. No per-benchmark tweaks nee
 
 Time estimates are higher than before because thinking mode generates ~8-16K tokens per question.
 
-- [ ] IFEval (re-running now with correct config)
-- [ ] GPQA Diamond (re-run needed — was 52% with broken config)
-- [ ] AIME 2025
+- [ ] AIME 2025 (re-run needed — with enable_thinking + custom YAML for \boxed{} format)
+- [ ] IFEval (541 Qs, 6 parallel, 16K tokens)
+- [ ] GPQA Diamond (198 Qs, 6 parallel, 16K tokens)
 - [ ] MMLU-Pro
 - [ ] SimpleBench
 - [ ] SimpleQA Verified
