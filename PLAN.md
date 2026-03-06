@@ -584,7 +584,7 @@ Primary benchmark suite. All 10 run before and after every major phase.
 
 #### Primary Framework: lm-evaluation-harness
 
-Covers 95% of benchmarks. Install: `pip install "lm_eval[hf,vllm]"`. Serve model via llama.cpp or vLLM on port 8000, then point all benchmarks at `http://localhost:8000/v1`.
+Covers 95% of benchmarks. Installed in `.venv-eval/` (v0.4.11). Serve model via llama-server (CUDA 13.1, b8215) at `C:\AI\llama-cpp-server\` on port 8080. Uses `local-chat-completions` model backend with `--apply_chat_template`. Only `generate_until` tasks work (not loglikelihood/MCQ). Use CoT/generative variants of benchmarks. See CLAUDE.md "Benchmarking" section for full commands.
 
 #### Secondary Benchmarks (Phase Boundaries Only)
 
@@ -724,12 +724,16 @@ STATISTICAL: McNemar p-values, CIs, contamination audit
 ## 8. Phase Checklist
 
 ### Pre-Pipeline
-- [ ] Download Qwen 3.5 9B (GGUF for inference, HF for training)
-- [ ] Setup lm-evaluation-harness (`pip install "lm_eval[hf,vllm]"`)
-- [ ] Setup model serving (llama.cpp server or LM Studio API on port 1234)
-- [ ] Run Full Eval (Sovereign 10) -- establish baseline
+- [x] Download Qwen 3.5 9B GGUF (Q4_K_M, 5.23 GB)
+- [ ] Download Qwen 3.5 9B HF weights (full precision, for QLoRA)
+- [x] Setup lm-evaluation-harness v0.4.11 in `.venv-eval/`
+- [x] Setup llama-server (b8215, CUDA 13.1) at `C:\AI\llama-cpp-server\`, port 8080
+- [x] HuggingFace auth configured (GPQA gated access)
+- [x] Pipeline verified end-to-end (IFEval 2-sample test)
+- [ ] Run baseline benchmarks: GPQA Diamond, IFEval, AIME 2025 (in progress)
+- [ ] Run remaining Sovereign 10 benchmarks (MMLU-Pro, SuperGPQA, etc. -- deferred, see CURRENT_STEP.md)
 - [ ] Record 20 forgetting canary problems
-- [ ] Setup Unsloth + PEFT + TRL + llama.cpp (Blackwell build, sm_120)
+- [ ] Setup Unsloth + PEFT + TRL
 - [ ] Verify QLoRA training works: small test run (100 examples, 5 minutes)
 - [ ] Setup vLLM for local inference (rollout generation)
 - [ ] Prepare cloud rental account (Lambda/RunPod)
