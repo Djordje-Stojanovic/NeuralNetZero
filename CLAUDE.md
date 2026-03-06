@@ -104,3 +104,4 @@ Domains: physics, chemistry, math, biology (~50 examples each).
 - `main` branch, simple commits
 - Commit format: `<type>: <what and why>`
 - Types: feat, fix, refactor, docs
+- After a successful commit where all tests pass, always push to main
