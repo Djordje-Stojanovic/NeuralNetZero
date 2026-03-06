@@ -6,7 +6,7 @@ Hardware: RTX 5070, 12GB GDDR7 VRAM, Blackwell sm_120.
 ## Document Hierarchy
 
 1. `CLAUDE.md` -- This file. Project identity, conventions, current state.
-2. `PLAN.md` -- Long-term roadmap. Architecture spec, data strategy, all phases.
+2. `PLAN.md` -- Long-term roadmap. Architecture spec, data strategy, all phases. (CR3 merged in)
 3. `CURRENT_STEP.md` -- Active step details, sub-tasks, acceptance criteria.
 4. `LLM_Training_Pipeline_Research_Report.md` -- Reference research (read-only).
 
@@ -15,8 +15,9 @@ If documents contradict each other, lower-numbered docs win.
 ## Current State
 
 - 1M param dense model DONE (v1, char-level tokenizer, ~997K params)
+- Phase 1 (BPE Tokenizer) DONE: 8192 vocab, 5.0x compression
 - Next milestone: CogCore-500M (see PLAN.md)
-- Current step: Phase 1 -- BPE Tokenizer (8192 vocab, see CURRENT_STEP.md)
+- Current step: Phase 2 -- Data Pipeline (see CURRENT_STEP.md)
 
 ## The Algorithm (decision sequence for every change)
 
@@ -33,6 +34,10 @@ If documents contradict each other, lower-numbered docs win.
 - Train smaller models longer (Qwen3 lesson: 60K tokens/param)
 - Dense beats MoE below 1B params for IQ/parameter
 - No dependencies until we need them
+
+## File Size Rule
+
+If any `.py` file exceeds 600 lines, split it into focused modules or simplify. Exception: `v0_pure_python.py` (preserved as-is, historical artifact).
 
 ## Architecture -- Current 1M Dense Baseline
 
@@ -58,11 +63,12 @@ SkipV1 (layer-1 V reuse, alpha init=0), no weight tying, no biases
 BPE 8192, context 2048, RoPE theta=10000 + YaRN/NTK
 ~490M params total, ~350M active at inference
 Training: 80B tokens (~16 days on RTX 5070)
+Post-training: Dr. GRPO (stripped DAPO), cold-start mandatory, SLERP merge
 ```
 
 ## Project Structure
 
-- `v0_pure_python.py` -- Original ~800 param pure Python GPT (preserved)
+- `v0_pure_python.py` -- Original ~800 param pure Python GPT (preserved, exempt from 600-line rule)
 - `config.py` -- Model + training hyperparameters
 - `tokenizer.py` -- CharTokenizer + BPETokenizer
 - `model.py` -- GPT nn.Module (RoPE, SwiGLU, RMSNorm)
