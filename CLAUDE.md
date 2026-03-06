@@ -1,12 +1,12 @@
 # NeuralNetZero
 
-Best intelligence-per-parameter LLM trained on first-principles STEM knowledge.
+Sovereign post-training of Qwen 3.5 9B for maximum local intelligence on RTX 5070.
 Hardware: RTX 5070, 12GB GDDR7 VRAM, Blackwell sm_120.
 
 ## Document Hierarchy
 
 1. `CLAUDE.md` -- This file. Project identity, conventions, current state.
-2. `PLAN.md` -- Long-term roadmap. Architecture spec, data strategy, all phases. (CR3+CR4+CR5 merged in)
+2. `PLAN.md` -- Long-term roadmap. 12-phase Sovereign pipeline, architecture, data strategy. (Sovereign CR merged in)
 3. `CURRENT_STEP.md` -- Active step details, sub-tasks, acceptance criteria. **Always update after finishing a task** (check off completed sub-tasks, update status, advance to next step if done).
 4. `LLM_Training_Pipeline_Research_Report.md` -- Reference research (read-only).
 
@@ -14,11 +14,13 @@ If documents contradict each other, lower-numbered docs win.
 
 ## Current State
 
+- **Track 1 (Sovereign Qwen 3.5 9B):** Strategic pivot -- post-train Qwen 3.5 9B into CogCore-9B-Sovereign
+- Current step: Pre-Pipeline Setup (see CURRENT_STEP.md)
+- Target: 15-50B dense equivalent on reasoning, 80+ t/s local inference
+- Pipeline: 12 phases, $540-1160, 10-12 weeks
+- **Track 2 (CogCore-1B Educational):** Existing code preserved, not deployment target
 - 1M param dense model DONE (v1, char-level tokenizer, ~997K params)
-- Phase 1a (BPE Tokenizer) DONE: 8192 vocab, 5.0x compression
-- Phase 1b: Retrain tokenizer to 128K vocab (NOT STARTED, blocks Phase 2)
-- Next milestone: CogCore-1B (see PLAN.md)
-- Current step: Phase 1b -- Tokenizer Retrain (see CURRENT_STEP.md)
+- BPE Tokenizer DONE (8192 vocab, 5.0x compression)
 
 ## The Algorithm (decision sequence for every change)
 
@@ -30,17 +32,32 @@ If documents contradict each other, lower-numbered docs win.
 
 ## Principles
 
+- Specialize a frontier model rather than train from scratch
+- Fast iteration > raw ceiling (9B before 35B MoE)
 - Ship working code, not clever code
 - Every parameter must be explainable
-- Train smaller models longer (Qwen3 lesson: 60K tokens/param)
-- Dense beats MoE below 1B params for IQ/parameter
+- Dense beats MoE for single-GPU deployment
 - No dependencies until we need them
 
 ## File Size Rule
 
 If any `.py` file exceeds 600 lines, split it into focused modules or simplify. Exception: `v0_pure_python.py` (preserved as-is, historical artifact).
 
-## Architecture -- Current 1M Dense Baseline
+## Architecture -- Target CogCore-9B-Sovereign
+
+```
+Base:           Qwen 3.5 9B (dense hybrid, Gated DeltaNet + GQA)
+Params:         ~9B total, ALL active
+Layers:         32 (24x Gated DeltaNet + 8x Gated Attention w/ GQA 16Q/4KV)
+Hidden:         4096, FFN intermediate 12288 (SwiGLU)
+Vocab:          248,320, Context: 262K native
+Pipeline:       12 phases (vocab surgery -> CPT -> traces -> SFT -> distillation -> GKD -> GRPO -> specialized RL -> tool SFT -> thinking -> memory -> deploy)
+Training:       QLoRA on RTX 5070 + rented 8xH100 for CPT/traces
+Target:         15-50B equivalent on reasoning, 80+ t/s local
+Model name:     CogCore-9B-Sovereign v1
+```
+
+## Architecture -- Track 2: 1M Dense Baseline (Educational)
 
 ```
 n_layer=5, d_model=128, n_head=4, d_head=32
@@ -54,23 +71,9 @@ Context: 512 tokens
 Total: ~997K parameters
 ```
 
-## Architecture -- Target CogCore-1B
-
-```
-CogCore-1B v5 -- Interleaved Hybrid Dense (Mamba-3 + periodic GQA)
-32L (26 SSMBlock + 6 HybridBlock), d=1280, GQA 20Q/4KV, d_head=64
-Mamba-3 MIMO in all 32 layers, GQA in 6 hybrid blocks only
-Gated addition merge (SSM + attention), Dense SwiGLU (hidden=3392)
-Vocab 128000, embed projection 640->1280, context 4096
-nGPT unit norms, QK-Norm, RoPE, logit softcap=15
-~1.03B params total, all active (100% utilization)
-Training: 80B tokens (~50-70 days on RTX 5070, FA2 only)
-Post-training: Cold-start -> Distillation -> Dr. GRPO -> Tool SFT -> SLERP merge
-Target: 7-10B dense equivalent on STEM reasoning
-```
-
 ## Project Structure
 
+### Track 2 (Educational, existing code)
 - `v0_pure_python.py` -- Original ~800 param pure Python GPT (preserved, exempt from 600-line rule)
 - `config.py` -- Model + training hyperparameters
 - `tokenizer.py` -- CharTokenizer + BPETokenizer
@@ -83,10 +86,14 @@ Target: 7-10B dense equivalent on STEM reasoning
 - `tokenizer/` -- BPE model output (`stem_bpe.json`)
 - `data/*.jsonl` -- STEM dataset (~200 examples across 4 domains)
 
+### Track 1 (Sovereign Pipeline, TBA)
+- Pipeline scripts for each phase will be added as implemented
+
 ## Usage
 
 ```bash
-python train.py            # Train (char tokenizer by default)
+# Track 2 (Educational)
+python train.py            # Train 1M model
 python inference.py        # Generate text interactively
 python prepare_corpus.py   # Build tokenizer corpus
 python train_tokenizer.py  # Train BPE tokenizer
@@ -106,6 +113,14 @@ Domains: physics, chemistry, math, biology (~50 examples each).
 - Python 3.12+
 - PyTorch 2.10+ with CUDA 12.8 (cu128 for Blackwell)
 - HuggingFace `tokenizers` for BPE
+- Unsloth (QLoRA training, Qwen 3.5 support)
+- PEFT (LoRA/DoRA adapters)
+- TRL (GRPOTrainer, SFTTrainer)
+- llama.cpp (inference, sm_120 build)
+- vLLM (batched inference for RL rollouts)
+- Ollama (deployment/serving)
+- torch.compile available on WSL2/Linux (NOT native Windows)
+- FA2 only (FA3 requires Hopper sm_90, not available on sm_120)
 - Falls back to CPU + float32 if no GPU
 
 ## Git
