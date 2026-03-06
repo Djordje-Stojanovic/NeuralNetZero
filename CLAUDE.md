@@ -19,8 +19,9 @@ If documents contradict each other, lower-numbered docs win.
 - llama-server (b8215, CUDA 13.1) installed at `C:\AI\llama-cpp-server\`
 - lm-evaluation-harness installed in `.venv-eval/`
 - HuggingFace auth configured (GPQA gated dataset access)
+- GPQA Diamond baseline: **52.0%** (flexible-extract, generative CoT)
 - Current step: Pre-Pipeline Setup -- running baseline benchmarks (see CURRENT_STEP.md)
-- Evaluation framework: Sovereign 10 benchmarks defined (see PLAN.md 7.5)
+- Evaluation framework: 40 benchmarks across 4 tiers (see CURRENT_STEP.md for full list)
 - Target: 15-50B dense equivalent on reasoning, 80+ t/s local inference
 - Pipeline: 12 phases, $540-1160, 10-12 weeks
 - **Track 2 (CogCore-1B Educational):** Existing code preserved, not deployment target
@@ -109,22 +110,31 @@ python v0_pure_python.py   # Original pure Python version
 
 ## Benchmarking (Track 1)
 
-### 1. Start llama-server
+### 1. Start llama-server (optimized config)
 
 ```bash
 cd C:\AI\llama-cpp-server
 ./llama-server.exe \
   -m "C:/Users/djord/.lmstudio/models/lmstudio-community/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q4_K_M.gguf" \
-  --port 8080 --n-gpu-layers 99 --ctx-size 16384 --parallel 2 \
+  --port 8080 --n-gpu-layers 99 --ctx-size 110592 --parallel 6 \
   --flash-attn on --jinja --host 127.0.0.1 --reasoning-format none
 ```
 
 Key flags:
 - `--reasoning-format none`: keeps `<think>` reasoning in `content` (visible to lm-eval)
-- `--ctx-size 16384`: large enough for question + thinking + answer
-- `--parallel 2`: 2 concurrent slots (safe for 12GB VRAM). 3 may work.
+- `--ctx-size 110592 --parallel 6`: 18,432 tokens per slot, ~10.4GB VRAM. Sweet spot for throughput + thinking depth.
+- `--flash-attn on`: required for efficiency on Blackwell
 - Model ID returned by API: `Qwen3.5-9B-Q4_K_M.gguf`
-- Measured speed: 85-92 t/s generation (single stream)
+- Measured speed: 85-92 t/s single stream, ~2.6 q/min at 6 concurrent on GPQA
+
+VRAM breakdown (Qwen 3.5 9B Q4_K_M, 6 slots, 18K/slot):
+- Model weights: ~5.2 GB (4.8 GB GPU + 0.5 GB CPU-mapped)
+- KV cache (f16, 8 attention layers only): ~3.5 GB (DeltaNet layers use fixed-size recurrent state)
+- Recurrent state (24 DeltaNet layers): ~0.3 GB
+- Compute buffers: ~0.5 GB
+- Total: ~10.4 GB / 12.2 GB (1.8 GB headroom)
+
+Do NOT quantize KV cache (`-ctk q8_0 -ctv q8_0`) -- preserves answer quality for benchmarking.
 
 ### 2. Run benchmarks
 
@@ -132,10 +142,10 @@ Key flags:
 cd C:\AI\NeuralNetZero
 source .venv-eval/Scripts/activate
 
-# Template for all benchmarks:
+# Template for all lm-eval benchmarks:
 PYTHONIOENCODING=utf-8 python -m lm_eval run \
   --model local-chat-completions \
-  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=2,max_gen_toks=4096" \
+  --model_args "model=Qwen3.5-9B-Q4_K_M.gguf,base_url=http://localhost:8080/v1/chat/completions,num_concurrent=6,max_gen_toks=4096" \
   --tasks <TASK_NAME> \
   --batch_size 1 \
   --apply_chat_template \
@@ -143,29 +153,44 @@ PYTHONIOENCODING=utf-8 python -m lm_eval run \
   --log_samples
 ```
 
-### 3. Sovereign 10 Benchmarks
+### 3. Monitoring benchmarks while running
 
-Group A (lm-eval-harness, verified working):
+From PowerShell (not bash -- `tail` not available natively):
+```powershell
+# Watch benchmark progress (progress bar with count + ETA):
+Get-Content "C:\path\to\task\output" -Wait
 
-| Task Name | Questions | Est. Time | Notes |
-|-----------|-----------|-----------|-------|
-| `gpqa_diamond_cot_zeroshot` | 198 | ~1-2 hrs | Gated dataset, needs HF auth |
-| `ifeval` | 541 | ~2-4 hrs | Public |
-| `aime25` | 30 | ~1-2 hrs | Public. Use `max_gen_toks=8192` |
+# Check all server slots are active:
+curl http://localhost:8080/slots | python -c "import json,sys; [print(f'Slot {s[\"id\"]}: processing={s[\"is_processing\"]}') for s in json.load(sys.stdin)]"
 
-Group B (separate repos, need installation per benchmark):
-- MMLU-Pro, SuperGPQA, LiveCodeBench v6, BFCL-V4, TAU2-Bench, RULER, LongBench v2
-- See CURRENT_STEP.md for repo URLs and details
+# Check VRAM usage:
+nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader
+```
 
-ALL 10 must be run before training begins.
+When running via Claude Code, background task output files are at:
+`C:\Users\djord\AppData\Local\Temp\claude\C--AI-NeuralNetZero\tasks\<task_id>.output`
 
-### 4. Important notes
+### 4. Baseline Results (Qwen 3.5 9B Q4_K_M, pre-training)
+
+| Benchmark | Score | Metric | Stock FP16 | Notes |
+|-----------|-------|--------|------------|-------|
+| GPQA Diamond | **52.0%** | flexible-extract | 81.7 | Zero-shot CoT generative. 103/198 correct, 91 wrong, 4 extraction failures. Gap vs stock likely due to generative eval vs loglikelihood MCQ. |
+| IFEval | -- | -- | 91.5 | Not yet run |
+| AIME 2025 | -- | -- | ~40-55 est. | Not yet run |
+
+### 5. Full Evaluation Suite (40 benchmarks across 4 tiers)
+
+ALL baselines must be established before training begins. See CURRENT_STEP.md for full tier list and status.
+
+### 6. Important notes
 
 - `PYTHONIOENCODING=utf-8` required on Windows (cp1252 can't print Unicode arrows)
 - `--apply_chat_template` required for `local-chat-completions` model
 - Only `generate_until` tasks work with `local-chat-completions` (NOT `multiple_choice`/`loglikelihood`)
 - Use CoT/generative variants (e.g., `gpqa_diamond_cot_zeroshot` not `gpqa_diamond_zeroshot`)
 - Results saved to `results/baseline/`
+- With temp=0 (greedy), runs are deterministic -- multiple runs give identical results
+- For small-N benchmarks (AIME=30), stderr captures sampling variance
 
 ## Dataset Format
 
