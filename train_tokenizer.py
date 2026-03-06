@@ -71,9 +71,8 @@ def main():
         encoding = tokenizer.encode(text)
         ids = encoding.ids
         decoded = tokenizer.decode(ids)
-        # Use repr for tokens to avoid Windows console encoding issues
-        tokens_str = [t.encode("utf-8", errors="replace").decode("ascii", errors="replace") for t in encoding.tokens]
-        print(f"    '{text}' -> {len(ids)} tokens: {tokens_str}")
+        # Use repr to avoid Windows console encoding issues with byte-level tokens
+        print(f"    '{text}' -> {len(ids)} tokens: {[repr(t) for t in encoding.tokens]}")
         if decoded != text:
             print(f"      WARNING: roundtrip mismatch: '{decoded}'")
 
