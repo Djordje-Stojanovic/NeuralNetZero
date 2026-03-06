@@ -7,7 +7,7 @@ Hardware: RTX 5070, 12GB GDDR7 VRAM, Blackwell sm_120.
 
 1. `CLAUDE.md` -- This file. Project identity, conventions, current state.
 2. `PLAN.md` -- Long-term roadmap. Architecture spec, data strategy, all phases. (CR3 merged in)
-3. `CURRENT_STEP.md` -- Active step details, sub-tasks, acceptance criteria.
+3. `CURRENT_STEP.md` -- Active step details, sub-tasks, acceptance criteria. **Always update after finishing a task** (check off completed sub-tasks, update status, advance to next step if done).
 4. `LLM_Training_Pipeline_Research_Report.md` -- Reference research (read-only).
 
 If documents contradict each other, lower-numbered docs win.
